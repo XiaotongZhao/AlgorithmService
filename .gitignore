@@ -1,0 +1,10 @@
+﻿################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/.vs/AlgorithmService
+/AlgorithmService/bin/Debug/net5.0
+/AlgorithmService/obj
+/Domain/.vs/Domain
+/Domain/bin/Debug/netstandard2.0
+/Domain/obj
