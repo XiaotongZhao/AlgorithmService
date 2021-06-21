@@ -3,6 +3,7 @@ using Domain.Algorithms.QuickSort.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using Domain.Algorithms.DynamicPlanning;
 
 namespace AlgorithmService.Controllers
 {
@@ -11,11 +12,13 @@ namespace AlgorithmService.Controllers
     public class AlgorithmsController : ControllerBase
     {
         private readonly IQuickSortService quickSortService;
+        private readonly IDynamicPlanningService dynamicPlanningService;
         private readonly IConfiguration configuration;
-        public AlgorithmsController(IConfiguration configuration, IQuickSortService quickSortService)
+        public AlgorithmsController(IConfiguration configuration, IQuickSortService quickSortService, IDynamicPlanningService dynamicPlanningService)
         {
             this.configuration = configuration;
             this.quickSortService = quickSortService;
+            this.dynamicPlanningService = dynamicPlanningService;
         }
 
         [HttpPost]
@@ -23,6 +26,13 @@ namespace AlgorithmService.Controllers
         public List<List<QuickSortData>> QuickSort(int[] datas)
         {
             return quickSortService.QuickSort(datas);
+        }
+        
+        [HttpPost]
+        [Route("DynamicPlanning")]
+        public int DynamicPlanning(int[] prices, int n)
+        {
+            return dynamicPlanningService.DynamicPlanning(prices, n);
         }
     }
 }
