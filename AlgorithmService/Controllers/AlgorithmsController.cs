@@ -29,10 +29,17 @@ namespace AlgorithmService.Controllers
         }
         
         [HttpPost]
-        [Route("DynamicPlanning")]
-        public int DynamicPlanning(int[] prices, int n)
+        [Route("DynamicPlanningFromTopToBottom")]
+        public int DynamicPlanningUpToBottom(int[] prices, int n)
         {
-            return dynamicPlanningService.DynamicPlanning(prices, n);
+            return dynamicPlanningService.DynamicPlanningFromTopToBottom(prices, n);
+        }
+        
+        [HttpPost]
+        [Route("DynamicPlanningFromBottomToTop")]
+        public int DynamicPlanningFromBottomToTop(int[] prices, int n)
+        {
+            return dynamicPlanningService.DynamicPlanningFromBottomToTop(prices, n);
         }
     }
 }

@@ -7,6 +7,8 @@ namespace Domain.Algorithms.DynamicPlanning
     public interface IDynamicPlanningService
     {
         string[] GetLongestCommonSubsequence(int[,] backup, string[] x, int i, int j);
-        int DynamicPlanning(int[] price, int n);
+        int DynamicPlanningFromTopToBottom(int[] price, int n);
+        int DynamicPlanningFromBottomToTop(int[] price, int n);
+
     }
 }

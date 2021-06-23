@@ -13,27 +13,51 @@ namespace Domain.Algorithms.DynamicPlanning
             throw new NotImplementedException();
         }
 
-        public int DynamicPlanning(int[] price, int n)
+        public int DynamicPlanningFromTopToBottom(int[] price, int n)
         {
             int[] r = new int[n + 1];
-            return GetMaxProceeds(price, n, r);
+            return GetMaxProceedsTopToBottom(price, n, r);
         }
 
-        private int GetMaxProceeds(int[] price, int n, int[] r)
+        public int DynamicPlanningFromBottomToTop(int[] price, int n)
         {
-            if (r[n] > 0)
-                return r[n];
-            var q = 0;
+            var backUp = new int[n + 1];
+            var res = GetMaxProceedsFromBottomToTop(price, n, backUp);
+            return res;
+        }
+
+        private int GetMaxProceedsFromBottomToTop(int[] price, int n, int[] backUp)
+        {
+            int result = 0;
+            for (int i = 1; i <= n; i++)
+            {
+                result = 0;
+                for (int j = 1; j <= i; j++)
+                {
+                    result = Math.Max(result, price[j] + backUp[i - j]);
+                }
+
+                backUp[i] = result;
+            }
+
+            return result;
+        }
+
+        private int GetMaxProceedsTopToBottom(int[] price, int n, int[] backUp)
+        {
+            if (backUp[n] > 0)
+                return backUp[n];
+            var result = 0;
             if (n == 0)
-                q = 0;
+                result = 0;
             else
                 for (var i = 1; i <= n; i++)
-                    q = Math.Max(q, price[i] + GetMaxProceeds(price, n - i, r));
-            r[n] = q;
-            return q;
+                    result = Math.Max(result, price[i] + GetMaxProceedsTopToBottom(price, n - i, backUp));
+            backUp[n] = result;
+            return result;
         }
 
-        private (int[,] length, string[,] graphic) calculateLongestCommonSubsequence(string[] x, string[] y)
+        private (int[,] length, string[,] graphic) CalculateLongestCommonSubsequence(string[] x, string[] y)
         {
             var row = x.Length;
             var line = y.Length;
