@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Domain.Algorithms.DynamicPlanning
 {
@@ -6,11 +7,6 @@ namespace Domain.Algorithms.DynamicPlanning
     {
         public DynamicPlanningService()
         {
-        }
-
-        public string[] GetLongestCommonSubsequence(int[,] backup, string[] x, int i, int j)
-        {
-            throw new NotImplementedException();
         }
 
         public int DynamicPlanningFromTopToBottom(int[] price, int n)
@@ -57,24 +53,40 @@ namespace Domain.Algorithms.DynamicPlanning
             return result;
         }
 
-        private (int[,] length, string[,] graphic) CalculateLongestCommonSubsequence(string[] x, string[] y)
+        public string GetLongestCommonSubsequence(string[] x, string[] y)
+        {
+            var stringBuilder = new StringBuilder();
+            var graphic = CalculateLongestCommonSubsequence(x, y);
+            var i = x.Length - 1;
+            var j = y.Length - 1;
+            while (i > 0)
+            {
+                if (graphic[i, j] == "↑")
+                    --j;
+                if (graphic[i, j] == "←")
+                    --i;
+                if (graphic[i, j] == "↖")
+                {
+                    stringBuilder.Append(x[i]);
+                    --j;
+                    --i;
+                }
+            }
+            return stringBuilder.ToString();
+        }
+
+        private string[,] CalculateLongestCommonSubsequence(string[] x, string[] y)
         {
             var row = x.Length;
             var line = y.Length;
             string[,] graphic = new string[row, line];
 
             int[,] length = new int[row, line];
-            for (int i = 0;
-                i < row;
-                i++)
+            for (int i = 0; i < row; i++)
                 length[i, 0] = 0;
-            for (int j = 0;
-                j < line;
-                j++)
+            for (int j = 0; j < line; j++)
                 length[0, j] = 0;
-            for (int i = 1;
-                i < line;
-                i++)
+            for (int i = 1; i < line; i++)
             {
                 for (int j = 1; j < row; j++)
                 {
@@ -96,7 +108,7 @@ namespace Domain.Algorithms.DynamicPlanning
                 }
             }
 
-            return (length, graphic);
+            return graphic;
         }
     }
 }
