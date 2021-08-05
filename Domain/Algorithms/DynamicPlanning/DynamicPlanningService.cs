@@ -61,17 +61,18 @@ namespace Domain.Algorithms.DynamicPlanning
             var j = y.Length - 1;
             while (i > 0)
             {
-                if (graphic[i, j] == "↑")
-                    --j;
-                if (graphic[i, j] == "←")
-                    --i;
                 if (graphic[i, j] == "↖")
                 {
                     stringBuilder.Append(x[i]);
                     --j;
                     --i;
                 }
+                else if (graphic[i, j] == "↑")
+                    --j;
+                else
+                    --i;
             }
+
             return stringBuilder.ToString();
         }
 
