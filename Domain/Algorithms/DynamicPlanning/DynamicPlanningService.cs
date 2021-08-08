@@ -53,43 +53,44 @@ namespace Domain.Algorithms.DynamicPlanning
             return result;
         }
 
-        public string GetLongestCommonSubsequence(string[] x, string[] y)
+        public string GetLongestCommonSubsequence(string x, string y)
         {
             var stringBuilder = new StringBuilder();
             var graphic = CalculateLongestCommonSubsequence(x, y);
-            var i = x.Length - 1;
-            var j = y.Length - 1;
-            while (i > 0)
+            var i = graphic.GetLength(0) - 1;
+            var j = graphic.GetLength(1) - 1;
+            while (i >= 0 && j >= 0)
             {
                 if (graphic[i, j] == "↖")
                 {
-                    stringBuilder.Append(x[i]);
+                    stringBuilder.Append(x[i - 1]);
                     --j;
                     --i;
                 }
                 else if (graphic[i, j] == "↑")
-                    --j;
-                else
                     --i;
+                else
+                    --j;
             }
 
             return stringBuilder.ToString();
         }
 
-        private string[,] CalculateLongestCommonSubsequence(string[] x, string[] y)
+        private string[,] CalculateLongestCommonSubsequence(string x, string y)
         {
+            x = $"0{x}";
+            y = $"0{y}";
             var row = x.Length;
             var line = y.Length;
-            string[,] graphic = new string[row, line];
-
-            int[,] length = new int[row, line];
-            for (int i = 0; i < row; i++)
+            var graphic = new string[row, line];
+            var length = new int[row, line];
+            for (var i = 0; i < row; i++)
                 length[i, 0] = 0;
-            for (int j = 0; j < line; j++)
+            for (var j = 0; j < line; j++)
                 length[0, j] = 0;
-            for (int i = 1; i < line; i++)
+            for (var i = 1; i < row; i++)
             {
-                for (int j = 1; j < row; j++)
+                for (var j = 1; j < line; j++)
                 {
                     if (x[i] == y[j])
                     {
