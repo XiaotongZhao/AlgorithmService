@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgorithmService", "Algorit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{76CF3D73-0C32-42D6-A8B9-1C35F79304E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgorithmServiceUnitTest", "AlgorithmServiceUnitTest\AlgorithmServiceUnitTest.csproj", "{845168C9-86A1-499B-AF84-D4E5EA0D1096}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{76CF3D73-0C32-42D6-A8B9-1C35F79304E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76CF3D73-0C32-42D6-A8B9-1C35F79304E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76CF3D73-0C32-42D6-A8B9-1C35F79304E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{845168C9-86A1-499B-AF84-D4E5EA0D1096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{845168C9-86A1-499B-AF84-D4E5EA0D1096}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{845168C9-86A1-499B-AF84-D4E5EA0D1096}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{845168C9-86A1-499B-AF84-D4E5EA0D1096}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

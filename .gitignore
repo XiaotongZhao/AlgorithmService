@@ -8,3 +8,6 @@
 /Domain/.vs/Domain
 /Domain/bin/Debug/netstandard2.0
 /Domain/obj
+/AlgorithmServiceUnitTest/bin/Debug/net5.0
+/AlgorithmServiceUnitTest/obj
+
