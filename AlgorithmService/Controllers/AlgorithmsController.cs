@@ -41,5 +41,12 @@ namespace AlgorithmService.Controllers
         {
             return dynamicPlanningService.DynamicPlanningFromBottomToTop(prices, n);
         }
+
+        [HttpGet]
+        [Route("Test")]
+        public int Test(int i)
+        {
+            return i;
+        }
     }
 }
