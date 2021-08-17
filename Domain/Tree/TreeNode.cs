@@ -9,5 +9,16 @@ namespace Domain.Tree
         public BinaryTreeNode Left { get; set; }
         public  BinaryTreeNode Right { get; set; }
         public  TreeNode Parent { get; set; }
+        
+        public TreeNode GetRoot()
+        {
+            TreeNode currentNode = this;
+            while (currentNode.IsRoot == false)
+            {
+                currentNode = currentNode.Parent;
+            }
+
+            return currentNode;
+        }
     }
 }
