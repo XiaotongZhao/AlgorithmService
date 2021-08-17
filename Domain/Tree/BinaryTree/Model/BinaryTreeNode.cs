@@ -1,6 +1,6 @@
 ﻿namespace Domain.Tree.BinaryTree.Model
 {
-    public class BinaryTreeNode : Tree
+    public abstract class BinaryTreeNode : TreeNode
     {
     }
 }
