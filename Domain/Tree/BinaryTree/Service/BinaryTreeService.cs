@@ -25,7 +25,7 @@ namespace Domain.Tree.BinaryTree.Service
             return binaryTreeNode;
         }
 
-        public void TreeInsert(BinaryTreeNode tree, BinaryTreeNode insertNode)
+        public void InsertBinaryTreeNode(BinaryTreeNode tree, BinaryTreeNode insertNode)
         {
             var currentNode = (BinaryTreeNode)tree.GetRoot();
             BinaryTreeNode tempTreeNode = null;
@@ -34,33 +34,20 @@ namespace Domain.Tree.BinaryTree.Service
                 tempTreeNode = currentNode;
                 currentNode = currentNode.Key > insertNode.Key ? currentNode.Left : currentNode.Right;
             }
-
-            currentNode = (BinaryTreeNode)tempTreeNode.Parent;
-            if (currentNode.Key > insertNode.Key)
-                currentNode.Left = insertNode;
-            else
-                currentNode.Right = insertNode;
-            insertNode.Parent = currentNode;
+            if (currentNode != null)
+            {
+                currentNode = (BinaryTreeNode)tempTreeNode.Parent;
+                if (currentNode.Key > insertNode.Key)
+                    currentNode.Left = insertNode;
+                else
+                    currentNode.Right = insertNode;
+                insertNode.Parent = currentNode;
+            }
         }
 
-        private TreeNode treeMaximum(TreeNode treeNode)
+        public bool DeleteBinaryTreeNode(BinaryTreeNode tree, int key)
         {
-            while (treeNode.Right != null)
-            {
-                treeNode = treeNode.Right;
-            }
-
-            return treeNode;
-        }
-
-        private TreeNode treeMinimum(TreeNode treeNode)
-        {
-            while (treeNode.Left != null)
-            {
-                treeNode = treeNode.Left;
-            }
-
-            return treeNode;
+            throw new NotImplementedException();
         }
     }
 }

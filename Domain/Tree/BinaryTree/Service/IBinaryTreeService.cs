@@ -6,6 +6,7 @@ namespace Domain.Tree.BinaryTree.Service
     {
         BinaryTreeNode TreeSearch(BinaryTreeNode binaryTreeNode, int key);
         BinaryTreeNode IterActiveTreeSearch(BinaryTreeNode binaryTreeNode, int key);
-        void TreeInsert(BinaryTreeNode binaryTree, BinaryTreeNode insertNode);
+        void InsertBinaryTreeNode(BinaryTreeNode binaryTree, BinaryTreeNode insertNode);
+        bool DeleteBinaryTreeNode(BinaryTreeNode tree, int key);
     }
 }

@@ -2,5 +2,25 @@
 {
     public abstract class BinaryTreeNode : TreeNode
     {
+        public BinaryTreeNode TreeMaximum(BinaryTreeNode treeNode)
+        {
+            var currentTreeNode = (BinaryTreeNode)this.GetRoot();
+            while (currentTreeNode.Right != null)
+            {
+                currentTreeNode = currentTreeNode.Right;
+            }
+            return currentTreeNode;
+        }
+
+        public BinaryTreeNode TreeMinimum()
+        {
+            var currentTreeNode = (BinaryTreeNode)this.GetRoot();
+            while (currentTreeNode.Left != null)
+            {
+                currentTreeNode = currentTreeNode.Left;
+            }
+            return currentTreeNode;
+        }
+        
     }
 }
