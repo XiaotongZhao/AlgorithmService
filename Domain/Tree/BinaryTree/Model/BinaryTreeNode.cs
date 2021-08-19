@@ -4,7 +4,7 @@
     {
         public BinaryTreeNode TreeMaximum(BinaryTreeNode treeNode)
         {
-            var currentTreeNode = (BinaryTreeNode)this.GetRoot();
+            var currentTreeNode = this;
             while (currentTreeNode.Right != null)
             {
                 currentTreeNode = currentTreeNode.Right;
@@ -14,7 +14,7 @@
 
         public BinaryTreeNode TreeMinimum()
         {
-            var currentTreeNode = (BinaryTreeNode)this.GetRoot();
+            var currentTreeNode = this;
             while (currentTreeNode.Left != null)
             {
                 currentTreeNode = currentTreeNode.Left;

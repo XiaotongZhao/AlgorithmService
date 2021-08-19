@@ -47,7 +47,28 @@ namespace Domain.Tree.BinaryTree.Service
 
         public bool DeleteBinaryTreeNode(BinaryTreeNode tree, int key)
         {
-            throw new NotImplementedException();
+            var deleteBinaryTreeNode = TreeSearch(tree, key);
+            if (deleteBinaryTreeNode.Left == null)
+            {
+                deleteBinaryTreeNode.Right.Parent = deleteBinaryTreeNode.Parent;
+                if (deleteBinaryTreeNode.Parent.Left.Key == deleteBinaryTreeNode.Key)
+                    deleteBinaryTreeNode.Parent.Left = deleteBinaryTreeNode.Right;
+                else if (deleteBinaryTreeNode.Parent.Right.Key == deleteBinaryTreeNode.Key)
+                    deleteBinaryTreeNode.Parent.Right = deleteBinaryTreeNode.Right;
+            }
+            else if (deleteBinaryTreeNode.Right == null)
+            {
+                deleteBinaryTreeNode.Left.Parent = deleteBinaryTreeNode.Parent;
+                if (deleteBinaryTreeNode.Parent.Left.Key == deleteBinaryTreeNode.Key)
+                    deleteBinaryTreeNode.Parent.Left = deleteBinaryTreeNode.Left;
+                else if (deleteBinaryTreeNode.Parent.Right.Key == deleteBinaryTreeNode.Key)
+                    deleteBinaryTreeNode.Parent.Right = deleteBinaryTreeNode.Left;
+            }
+            else
+            {
+                var rightBehindChild = deleteBinaryTreeNode.TreeMinimum();
+            }
+            return true;
         }
     }
 }
