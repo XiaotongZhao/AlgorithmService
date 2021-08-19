@@ -8,5 +8,6 @@ namespace Domain.Tree.BinaryTree.Service
         BinaryTreeNode IterActiveTreeSearch(BinaryTreeNode binaryTreeNode, int key);
         void InsertBinaryTreeNode(BinaryTreeNode binaryTree, BinaryTreeNode insertNode);
         bool DeleteBinaryTreeNode(BinaryTreeNode tree, int key);
+        BinaryTreeNode CreateBinaryTree(int[] keys);
     }
 }

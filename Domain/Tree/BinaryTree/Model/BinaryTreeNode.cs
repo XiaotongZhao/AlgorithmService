@@ -5,19 +5,19 @@
         public BinaryTreeNode TreeMaximum(BinaryTreeNode treeNode)
         {
             var currentTreeNode = this;
-            while (currentTreeNode.Right != null)
+            while (currentTreeNode.RightChildNode != null)
             {
-                currentTreeNode = currentTreeNode.Right;
+                currentTreeNode = currentTreeNode.RightChildNode;
             }
             return currentTreeNode;
         }
-
+        
         public BinaryTreeNode TreeMinimum()
         {
             var currentTreeNode = this;
-            while (currentTreeNode.Left != null)
+            while (currentTreeNode.LeftChildNode != null)
             {
-                currentTreeNode = currentTreeNode.Left;
+                currentTreeNode = currentTreeNode.LeftChildNode;
             }
             return currentTreeNode;
         }
