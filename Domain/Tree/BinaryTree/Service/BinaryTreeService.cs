@@ -27,19 +27,22 @@ namespace Domain.Tree.BinaryTree.Service
             return binaryTreeNode;
         }
 
-        private void transplant(BinaryTreeNode deleteBinaryTreeNode, BinaryTreeNode childNode)
+        private void transplant(BinaryTreeNode deleteBinaryTreeNode, BinaryTreeNode behindChildNode)
         {
             if (deleteBinaryTreeNode.Parent == null)
-                childNode.IsRoot = true;
+                behindChildNode.IsRoot = true;
             else if (deleteBinaryTreeNode.Parent.LeftChildNode.Key == deleteBinaryTreeNode.Key)
-                deleteBinaryTreeNode.Parent.LeftChildNode = childNode;
+                deleteBinaryTreeNode.Parent.LeftChildNode = behindChildNode;
             else
-                deleteBinaryTreeNode.Parent.RightChildNode = childNode;
-            if (childNode != null)
-                childNode.Parent = deleteBinaryTreeNode.Parent;
+                deleteBinaryTreeNode.Parent.RightChildNode = behindChildNode;
+
+            if (behindChildNode != null)
+            {
+                behindChildNode.Parent = deleteBinaryTreeNode.Parent;
+            }
         }
 
-        public bool DeleteBinaryTreeNode(BinaryTreeNode tree, int key)
+        public BinaryTreeNode DeleteBinaryTreeNode(BinaryTreeNode tree, int key)
         {
             var deleteBinaryTreeNode = TreeSearch(tree, key);
             if (deleteBinaryTreeNode.LeftChildNode == null)
@@ -56,8 +59,13 @@ namespace Domain.Tree.BinaryTree.Service
                     behindChildNode.Parent.LeftChildNode = behindChildNodeOfRightChild;
                     behindChildNodeOfRightChild.Parent = behindChildNode.Parent;
                 }
+                if (deleteBinaryTreeNode.RightChildNode != null)
+                {
+                    behindChildNode.RightChildNode = deleteBinaryTreeNode.RightChildNode;
+                    deleteBinaryTreeNode.RightChildNode.Parent = behindChildNode;
+                }
             }
-            return true;
+            return tree;
         }
         
         public void InsertBinaryTreeNode(ref BinaryTreeNode tree, BinaryTreeNode insertNode)

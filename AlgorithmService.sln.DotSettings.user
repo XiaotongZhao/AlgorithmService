@@ -3,5 +3,7 @@
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::845168C9-86A1-499B-AF84-D4E5EA0D1096::net5.0::AlgorithmServiceUnitTest.AlgorithmsUnitTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::845168C9-86A1-499B-AF84-D4E5EA0D1096::net5.0::AlgorithmServiceUnitTest.BinaryTreeUnitTest.TestCreateBinaryTree&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::845168C9-86A1-499B-AF84-D4E5EA0D1096::net5.0::AlgorithmServiceUnitTest.BinaryTreeUnitTest.TestDeleteBinaryNode&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::845168C9-86A1-499B-AF84-D4E5EA0D1096::net5.0::AlgorithmServiceUnitTest.BinaryTreeUnitTest.TestDeleteRightBinaryNode&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
