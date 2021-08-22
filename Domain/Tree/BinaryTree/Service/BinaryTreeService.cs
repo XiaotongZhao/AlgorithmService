@@ -1,4 +1,3 @@
-using System;
 using Domain.Tree.BinaryTree.Model;
 
 namespace Domain.Tree.BinaryTree.Service
@@ -7,9 +6,10 @@ namespace Domain.Tree.BinaryTree.Service
     {
         public BinaryTreeNode TreeSearch(BinaryTreeNode binaryTreeNode, int key)
         {
-            if (binaryTreeNode != null || key == binaryTreeNode.Key)
+            var currentKey = binaryTreeNode.Key;
+            if (key == currentKey)
                 return binaryTreeNode;
-            if (key < binaryTreeNode.Key)
+            else if (key < currentKey)
                 return TreeSearch(binaryTreeNode.LeftChildNode, key);
             else
                 return TreeSearch(binaryTreeNode.RightChildNode, key);
@@ -25,27 +25,6 @@ namespace Domain.Tree.BinaryTree.Service
             }
 
             return binaryTreeNode;
-        }
-
-        public void InsertBinaryTreeNode(BinaryTreeNode tree, BinaryTreeNode insertNode)
-        {
-            var currentNode = (BinaryTreeNode)tree.GetRoot();
-            BinaryTreeNode tempTreeNode = null;
-            while (currentNode != null)
-            {
-                tempTreeNode = currentNode;
-                currentNode = currentNode.Key > insertNode.Key ? currentNode.LeftChildNode : currentNode.RightChildNode;
-            }
-
-            if (currentNode != null)
-            {
-                currentNode = (BinaryTreeNode)tempTreeNode.Parent;
-                if (currentNode.Key > insertNode.Key)
-                    currentNode.LeftChildNode = insertNode;
-                else
-                    currentNode.RightChildNode = insertNode;
-                insertNode.Parent = currentNode;
-            }
         }
 
         private void transplant(BinaryTreeNode deleteBinaryTreeNode, BinaryTreeNode childNode)
@@ -80,10 +59,48 @@ namespace Domain.Tree.BinaryTree.Service
             }
             return true;
         }
+        
+        public void InsertBinaryTreeNode(ref BinaryTreeNode tree, BinaryTreeNode insertNode)
+        {
+            if (tree == null)
+            {
+                insertNode.IsRoot = true;
+                tree = insertNode;
+            }
+            else
+            {
+                var currentNode = (BinaryTreeNode)tree.GetRoot();
+                BinaryTreeNode tempTreeNode = null;
+                while (currentNode != null)
+                {
+                    tempTreeNode = currentNode;
+                    currentNode = currentNode.Key > insertNode.Key ? currentNode.LeftChildNode : currentNode.RightChildNode;
+                }
+
+                if (tempTreeNode != null)
+                {
+                    currentNode = tempTreeNode;
+                    if (currentNode.Key > insertNode.Key)
+                        currentNode.LeftChildNode = insertNode;
+                    else
+                        currentNode.RightChildNode = insertNode;
+                    insertNode.Parent = currentNode;
+                }
+            }
+        }
 
         public BinaryTreeNode CreateBinaryTree(int[] keys)
         {
-            throw new NotImplementedException();
+            BinaryTreeNode tree = null;
+            for (int i = 0; i < keys.Length; i++)
+            {
+                var binaryNode = new BinaryTreeNode()
+                {
+                    Key = keys[i]
+                };
+                InsertBinaryTreeNode(ref tree, binaryNode);
+            }
+            return tree;
         }
     }
 }

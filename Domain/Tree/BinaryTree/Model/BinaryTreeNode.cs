@@ -1,6 +1,6 @@
 ﻿namespace Domain.Tree.BinaryTree.Model
 {
-    public abstract class BinaryTreeNode : TreeNode
+    public class BinaryTreeNode : TreeNode
     {
         public BinaryTreeNode TreeMaximum(BinaryTreeNode treeNode)
         {
