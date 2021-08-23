@@ -27,22 +27,21 @@ namespace Domain.Tree.BinaryTree.Service
             return binaryTreeNode;
         }
 
-        private void transplant(BinaryTreeNode deleteBinaryTreeNode, BinaryTreeNode behindChildNode)
+        private void transplant(BinaryTreeNode currentBinaryTreeNode, BinaryTreeNode behindChildNode)
         {
-            if (deleteBinaryTreeNode.Parent == null)
+            if (currentBinaryTreeNode.Parent == null)
                 behindChildNode.IsRoot = true;
-            else if (deleteBinaryTreeNode.Parent.LeftChildNode.Key == deleteBinaryTreeNode.Key)
-                deleteBinaryTreeNode.Parent.LeftChildNode = behindChildNode;
+            else if (currentBinaryTreeNode.Parent.LeftChildNode.Key == currentBinaryTreeNode.Key)
+                currentBinaryTreeNode.Parent.LeftChildNode = behindChildNode;
             else
-                deleteBinaryTreeNode.Parent.RightChildNode = behindChildNode;
-
+                currentBinaryTreeNode.Parent.RightChildNode = behindChildNode;
             if (behindChildNode != null)
             {
-                behindChildNode.Parent = deleteBinaryTreeNode.Parent;
+                behindChildNode.Parent = currentBinaryTreeNode.Parent;
             }
         }
 
-        public BinaryTreeNode DeleteBinaryTreeNode(BinaryTreeNode tree, int key)
+        public void DeleteBinaryTreeNode(BinaryTreeNode tree, int key)
         {
             var deleteBinaryTreeNode = TreeSearch(tree, key);
             if (deleteBinaryTreeNode.LeftChildNode == null)
@@ -52,22 +51,18 @@ namespace Domain.Tree.BinaryTree.Service
             else
             {
                 var behindChildNode = deleteBinaryTreeNode.RightChildNode.TreeMinimum();
-                transplant(deleteBinaryTreeNode, behindChildNode);
-                if (behindChildNode.RightChildNode != null)
+                if (behindChildNode.Parent.Key != deleteBinaryTreeNode.Key)
                 {
-                    var behindChildNodeOfRightChild = behindChildNode.RightChildNode;
-                    behindChildNode.Parent.LeftChildNode = behindChildNodeOfRightChild;
-                    behindChildNodeOfRightChild.Parent = behindChildNode.Parent;
-                }
-                if (deleteBinaryTreeNode.RightChildNode != null)
-                {
+                    transplant(behindChildNode, behindChildNode.RightChildNode);
                     behindChildNode.RightChildNode = deleteBinaryTreeNode.RightChildNode;
-                    deleteBinaryTreeNode.RightChildNode.Parent = behindChildNode;
+                    behindChildNode.RightChildNode.Parent = behindChildNode;
                 }
+                transplant(deleteBinaryTreeNode, behindChildNode);
+                behindChildNode.LeftChildNode = deleteBinaryTreeNode.LeftChildNode;
+                behindChildNode.LeftChildNode.Parent = behindChildNode;
             }
-            return tree;
         }
-        
+
         public void InsertBinaryTreeNode(ref BinaryTreeNode tree, BinaryTreeNode insertNode)
         {
             if (tree == null)
@@ -82,7 +77,9 @@ namespace Domain.Tree.BinaryTree.Service
                 while (currentNode != null)
                 {
                     tempTreeNode = currentNode;
-                    currentNode = currentNode.Key > insertNode.Key ? currentNode.LeftChildNode : currentNode.RightChildNode;
+                    currentNode = currentNode.Key > insertNode.Key
+                        ? currentNode.LeftChildNode
+                        : currentNode.RightChildNode;
                 }
 
                 if (tempTreeNode != null)
@@ -108,6 +105,7 @@ namespace Domain.Tree.BinaryTree.Service
                 };
                 InsertBinaryTreeNode(ref tree, binaryNode);
             }
+
             return tree;
         }
     }

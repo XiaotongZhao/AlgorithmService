@@ -47,10 +47,15 @@ namespace AlgorithmServiceUnitTest
         {
             using var scope = startupFixture.ServiceProvider.CreateScope();
             var binaryTreeService = scope.ServiceProvider.GetService<IBinaryTreeService>();
-            int[] keys = new[] { 9, 7, 3, 8, 2, 6, 5, 12, 15, 13, 14, 16 };
+            int[] keys = new[] { 9, 7, 3, 8, 2, 6, 5, 12, 11, 15, 13, 14, 16 };
             var tree = binaryTreeService.CreateBinaryTree(keys);
-            tree = binaryTreeService.DeleteBinaryTreeNode(tree, 3);
+            binaryTreeService.DeleteBinaryTreeNode(tree, 3);
             Assert.True(tree.GetRoot().LeftChildNode.LeftChildNode.Key == 5);
+            Assert.True(tree.GetRoot().LeftChildNode.LeftChildNode.LeftChildNode.Key == 2);
+            Assert.True(tree.GetRoot().LeftChildNode.LeftChildNode.RightChildNode.Key == 6 
+                        && tree.GetRoot().LeftChildNode.LeftChildNode.RightChildNode.LeftChildNode == null
+                        && tree.GetRoot().LeftChildNode.LeftChildNode.RightChildNode.RightChildNode == null);
+
         }
         
         [Fact]
@@ -60,7 +65,7 @@ namespace AlgorithmServiceUnitTest
             var binaryTreeService = scope.ServiceProvider.GetService<IBinaryTreeService>();
             int[] keys = new[] { 9, 7, 3, 8, 2, 6, 5, 12, 11, 15, 13, 14, 16 };
             var tree = binaryTreeService.CreateBinaryTree(keys);
-            tree = binaryTreeService.DeleteBinaryTreeNode(tree, 12);
+            binaryTreeService.DeleteBinaryTreeNode(tree, 12);
             Assert.True(tree.GetRoot().RightChildNode.Key == 13);
         }
     }
