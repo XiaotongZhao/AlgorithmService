@@ -55,7 +55,21 @@ namespace AlgorithmServiceUnitTest
             Assert.True(tree.GetRoot().LeftChildNode.LeftChildNode.RightChildNode.Key == 6 
                         && tree.GetRoot().LeftChildNode.LeftChildNode.RightChildNode.LeftChildNode == null
                         && tree.GetRoot().LeftChildNode.LeftChildNode.RightChildNode.RightChildNode == null);
-
+        }
+        
+        [Fact]
+        public void TestDeleteLeftBinaryChildNode()
+        {
+            using var scope = startupFixture.ServiceProvider.CreateScope();
+            var binaryTreeService = scope.ServiceProvider.GetService<IBinaryTreeService>();
+            int[] keys = new[] { 9, 7, 3, 8, 2, 6, 5, 12, 11, 15, 13, 14, 16 };
+            var tree = binaryTreeService.CreateBinaryTree(keys);
+            binaryTreeService.DeleteBinaryTreeNode(tree, 5);
+            var result1 = tree.GetRoot().LeftChildNode.LeftChildNode.RightChildNode.LeftChildNode;
+            Assert.True(result1 == null);
+            binaryTreeService.DeleteBinaryTreeNode(tree, 6);
+            var result2 = tree.GetRoot().LeftChildNode.LeftChildNode.RightChildNode;
+            Assert.True(result2 == null);
         }
         
         [Fact]

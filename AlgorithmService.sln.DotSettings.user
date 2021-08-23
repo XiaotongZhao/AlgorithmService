@@ -4,5 +4,6 @@
     &lt;TestId&gt;xUnit::845168C9-86A1-499B-AF84-D4E5EA0D1096::net5.0::AlgorithmServiceUnitTest.AlgorithmsUnitTest&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::845168C9-86A1-499B-AF84-D4E5EA0D1096::net5.0::AlgorithmServiceUnitTest.BinaryTreeUnitTest.TestDeleteLeftBinaryNode&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::845168C9-86A1-499B-AF84-D4E5EA0D1096::net5.0::AlgorithmServiceUnitTest.BinaryTreeUnitTest.TestDeleteRightBinaryNode&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::845168C9-86A1-499B-AF84-D4E5EA0D1096::net5.0::AlgorithmServiceUnitTest.BinaryTreeUnitTest&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
