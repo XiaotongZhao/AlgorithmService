@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Tree\BTree" />
-    <Folder Include="Tree\RedBlackTree" />
+    <Folder Include="Tree\BTree\Model" />
+    <Folder Include="Tree\BTree\Service" />
   </ItemGroup>
 
 </Project>
