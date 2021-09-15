@@ -57,13 +57,14 @@ namespace Domain.Tree.BinaryTree.Service
                     behindChildNode.RightChildNode = deleteBinaryTreeNode.RightChildNode;
                     behindChildNode.RightChildNode.Parent = behindChildNode;
                 }
+
                 transplant(deleteBinaryTreeNode, behindChildNode);
                 behindChildNode.LeftChildNode = deleteBinaryTreeNode.LeftChildNode;
                 behindChildNode.LeftChildNode.Parent = behindChildNode;
             }
         }
 
-        public void InsertBinaryTreeNode(ref BinaryTreeNode tree, BinaryTreeNode insertNode)
+        public void InsertBinaryTreeNode(ref BinaryTreeNode tree, ref BinaryTreeNode insertNode)
         {
             if (tree == null)
             {
@@ -103,7 +104,7 @@ namespace Domain.Tree.BinaryTree.Service
                 {
                     Key = keys[i]
                 };
-                InsertBinaryTreeNode(ref tree, binaryNode);
+                InsertBinaryTreeNode(ref tree, ref binaryNode);
             }
 
             return tree;
