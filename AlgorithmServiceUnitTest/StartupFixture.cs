@@ -2,6 +2,7 @@
 using Domain.Algorithms.DynamicPlanning;
 using Domain.Algorithms.QuickSort.Service;
 using Domain.Tree.BinaryTree.Service;
+using Domain.Tree.RedBlackTree.Service;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AlgorithmServiceUnitTest
@@ -15,6 +16,7 @@ namespace AlgorithmServiceUnitTest
             services.AddScoped<IQuickSortService, QuickSortService>();
             services.AddScoped<IDynamicPlanningService, DynamicPlanningService>();
             services.AddScoped<IBinaryTreeService, BinaryTreeService>();
+            services.AddScoped<IRedBlackTreeService, RedBlackTreeService>();
 
             ServiceProvider = services.BuildServiceProvider();
         }

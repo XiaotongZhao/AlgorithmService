@@ -8,7 +8,31 @@ namespace Domain.Tree.RedBlackTree.Service
     {
         private bool fixRedBlackTreeAfterInsert(RedBlackTreeNode lastInsertRedBlackTreeNode)
         {
-            return false;
+            if (!lastInsertRedBlackTreeNode.IsRoot)
+            {
+                var currentNode = lastInsertRedBlackTreeNode;
+                var currentParentNode = lastInsertRedBlackTreeNode.RedBlackTreeParent;
+                if (currentParentNode.Key == currentParentNode.RedBlackTreeLeftChildNode.Key)
+                {
+                    if (currentParentNode.NodeColor == Color.Red &&
+                        currentParentNode.RedBlackTreeRightChildNode.NodeColor == Color.Red)
+                    {
+                        currentParentNode.NodeColor = Color.Black;
+                        currentParentNode.RedBlackTreeRightChildNode.NodeColor = Color.Black;
+                        currentNode = currentParentNode.RedBlackTreeParent;
+                    }
+                }
+                else
+                {
+                    
+                }
+            }
+            else
+            {
+                lastInsertRedBlackTreeNode.NodeColor = Color.Black;
+            }
+
+            
         }
 
         public bool InsertRedBlackTreeNode(ref RedBlackTreeNode redBlackTree, RedBlackTreeNode insertRedBlackTreeNode)
@@ -16,7 +40,7 @@ namespace Domain.Tree.RedBlackTree.Service
             var bianryTree = redBlackTree as BinaryTreeNode;
             var insertTreeNode = insertRedBlackTreeNode as BinaryTreeNode;
             InsertBinaryTreeNode(ref bianryTree, ref insertTreeNode);
-            var res = fixRedBlackTreeAfterInsert(insertRedBlackTreeNode);
+            var res = fixRedBlackTreeAfterInsert(insertTreeNode as RedBlackTreeNode);
             return res;
         }
         

@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Domain.Algorithms.DynamicPlanning;
+using Domain.Tree.BinaryTree.Service;
+using Domain.Tree.RedBlackTree.Service;
 
 namespace AlgorithmService
 {
@@ -23,6 +25,8 @@ namespace AlgorithmService
         {
             services.AddScoped<IQuickSortService, QuickSortService>();
             services.AddScoped<IDynamicPlanningService, DynamicPlanningService>();
+            services.AddScoped<IBinaryTreeService, BinaryTreeService>();
+            services.AddScoped<IRedBlackTreeService, RedBlackTreeService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
