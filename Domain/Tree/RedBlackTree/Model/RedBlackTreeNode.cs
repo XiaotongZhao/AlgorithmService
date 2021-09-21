@@ -6,18 +6,18 @@ namespace Domain.Tree.RedBlackTree.Model
     {
         public Color NodeColor { get; set; }
 
-        public RedBlackTreeNode RedBlackTreeParent
+        public RedBlackTreeNode RedBlackParent
         {
             set { this.Parent = value; }
             get => this.Parent as RedBlackTreeNode;
         }
 
-        public RedBlackTreeNode RedBlackTreeLeftChildNode
+        public RedBlackTreeNode RedBlackLeftChildNode
         {
             set { this.Parent = value; }
             get => this.Parent as RedBlackTreeNode;
         }
-        public RedBlackTreeNode RedBlackTreeRightChildNode
+        public RedBlackTreeNode RedBlackRightChildNode
         {
             set { this.Parent = value; }
             get => this.Parent as RedBlackTreeNode;
@@ -26,34 +26,34 @@ namespace Domain.Tree.RedBlackTree.Model
 
         public void LeftRotate()
         {
-            var currentRedBlackTreeRightChildNode = this.RedBlackTreeRightChildNode;
-            if (this.RedBlackTreeParent.RedBlackTreeLeftChildNode.Key == this.Key)
-                this.RedBlackTreeParent.RedBlackTreeLeftChildNode = currentRedBlackTreeRightChildNode;
+            var currentRedBlackTreeRightChildNode = this.RedBlackRightChildNode;
+            if (this.RedBlackParent.RedBlackLeftChildNode.Key == this.Key)
+                this.RedBlackParent.RedBlackLeftChildNode = currentRedBlackTreeRightChildNode;
             else
-                this.RedBlackTreeParent.RightChildNode = currentRedBlackTreeRightChildNode;
-            currentRedBlackTreeRightChildNode.RedBlackTreeParent = this.RedBlackTreeParent;
+                this.RedBlackParent.RightChildNode = currentRedBlackTreeRightChildNode;
+            currentRedBlackTreeRightChildNode.RedBlackParent = this.RedBlackParent;
 
-            this.RightChildNode = currentRedBlackTreeRightChildNode.RedBlackTreeLeftChildNode;
-            currentRedBlackTreeRightChildNode.RedBlackTreeLeftChildNode.RedBlackTreeParent = this;
+            this.RightChildNode = currentRedBlackTreeRightChildNode.RedBlackLeftChildNode;
+            currentRedBlackTreeRightChildNode.RedBlackLeftChildNode.RedBlackParent = this;
 
-            currentRedBlackTreeRightChildNode.RedBlackTreeLeftChildNode = this;
-            this.RedBlackTreeParent = currentRedBlackTreeRightChildNode;
+            currentRedBlackTreeRightChildNode.RedBlackLeftChildNode = this;
+            this.RedBlackParent = currentRedBlackTreeRightChildNode;
         }
 
         public void RightRotate()
         {
-            var currentRedBlackTreeLeftChildNode = this.RedBlackTreeLeftChildNode;
-            if (this.RedBlackTreeParent.RedBlackTreeLeftChildNode.Key == this.Key)
-                this.RedBlackTreeParent.RedBlackTreeLeftChildNode = currentRedBlackTreeLeftChildNode;
+            var currentRedBlackTreeLeftChildNode = this.RedBlackLeftChildNode;
+            if (this.RedBlackParent.RedBlackLeftChildNode.Key == this.Key)
+                this.RedBlackParent.RedBlackLeftChildNode = currentRedBlackTreeLeftChildNode;
             else
-                this.RedBlackTreeParent.RedBlackTreeRightChildNode = currentRedBlackTreeLeftChildNode;
-            currentRedBlackTreeLeftChildNode.RedBlackTreeParent = this.RedBlackTreeParent;
+                this.RedBlackParent.RedBlackRightChildNode = currentRedBlackTreeLeftChildNode;
+            currentRedBlackTreeLeftChildNode.RedBlackParent = this.RedBlackParent;
 
-            this.LeftChildNode = currentRedBlackTreeLeftChildNode.RedBlackTreeRightChildNode;
-            currentRedBlackTreeLeftChildNode.RedBlackTreeRightChildNode.RedBlackTreeParent = this;
+            this.LeftChildNode = currentRedBlackTreeLeftChildNode.RedBlackRightChildNode;
+            currentRedBlackTreeLeftChildNode.RedBlackRightChildNode.RedBlackParent = this;
 
-            currentRedBlackTreeLeftChildNode.RedBlackTreeRightChildNode = this;
-            this.RedBlackTreeParent = currentRedBlackTreeLeftChildNode;
+            currentRedBlackTreeLeftChildNode.RedBlackRightChildNode = this;
+            this.RedBlackParent = currentRedBlackTreeLeftChildNode;
         }
     }
 

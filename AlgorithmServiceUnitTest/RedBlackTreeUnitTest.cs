@@ -2,7 +2,7 @@
 
 namespace AlgorithmServiceUnitTest
 {
-    public class RedBlackTreeUnitTest
+    public class RedBlackTreeUnitTest : IClassFixture<StartupFixture>
     {
         private readonly StartupFixture startupFixture;
 
@@ -14,6 +14,13 @@ namespace AlgorithmServiceUnitTest
         [Fact]
         public void TestRightRotate()
         {
+            var a = 12;
+            if (a > 2)
+            {
+            }
+            else if (a > 5)
+            {
+            }
         }
         
         [Fact]

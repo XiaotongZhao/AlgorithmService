@@ -27,38 +27,24 @@ namespace Domain.Tree.BinaryTree.Service
             return binaryTreeNode;
         }
 
-        private void transplant(BinaryTreeNode currentBinaryTreeNode, BinaryTreeNode behindChildNode)
-        {
-            if (currentBinaryTreeNode.Parent == null)
-                behindChildNode.IsRoot = true;
-            else if (currentBinaryTreeNode.Parent.LeftChildNode.Key == currentBinaryTreeNode.Key)
-                currentBinaryTreeNode.Parent.LeftChildNode = behindChildNode;
-            else
-                currentBinaryTreeNode.Parent.RightChildNode = behindChildNode;
-            if (behindChildNode != null)
-            {
-                behindChildNode.Parent = currentBinaryTreeNode.Parent;
-            }
-        }
-
         public void DeleteBinaryTreeNode(BinaryTreeNode tree, int key)
         {
             var deleteBinaryTreeNode = TreeSearch(tree, key);
             if (deleteBinaryTreeNode.LeftChildNode == null)
-                transplant(deleteBinaryTreeNode, deleteBinaryTreeNode.RightChildNode);
+                deleteBinaryTreeNode.Transplant(deleteBinaryTreeNode.RightChildNode);
             else if (deleteBinaryTreeNode.RightChildNode == null)
-                transplant(deleteBinaryTreeNode, deleteBinaryTreeNode.LeftChildNode);
+                deleteBinaryTreeNode.Transplant(deleteBinaryTreeNode.LeftChildNode);
             else
             {
                 var behindChildNode = deleteBinaryTreeNode.RightChildNode.TreeMinimum();
                 if (behindChildNode.Parent.Key != deleteBinaryTreeNode.Key)
                 {
-                    transplant(behindChildNode, behindChildNode.RightChildNode);
+                    behindChildNode.Transplant(behindChildNode.RightChildNode);
                     behindChildNode.RightChildNode = deleteBinaryTreeNode.RightChildNode;
                     behindChildNode.RightChildNode.Parent = behindChildNode;
                 }
 
-                transplant(deleteBinaryTreeNode, behindChildNode);
+                deleteBinaryTreeNode.Transplant(behindChildNode);
                 behindChildNode.LeftChildNode = deleteBinaryTreeNode.LeftChildNode;
                 behindChildNode.LeftChildNode.Parent = behindChildNode;
             }

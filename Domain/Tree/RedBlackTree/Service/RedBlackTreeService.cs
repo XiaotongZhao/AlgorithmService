@@ -6,33 +6,65 @@ namespace Domain.Tree.RedBlackTree.Service
 {
     public class RedBlackTreeService : BinaryTreeService, IRedBlackTreeService
     {
-        private bool fixRedBlackTreeAfterInsert(RedBlackTreeNode lastInsertRedBlackTreeNode)
+        private RedBlackTreeNode fixRedBlackTreeAfterInsert(RedBlackTreeNode insertTreeNode)
         {
-            if (!lastInsertRedBlackTreeNode.IsRoot)
+            var currentNode = insertTreeNode;
+            while (insertTreeNode.RedBlackParent?.NodeColor == Color.Red)
             {
-                var currentNode = lastInsertRedBlackTreeNode;
-                var currentParentNode = lastInsertRedBlackTreeNode.RedBlackTreeParent;
-                if (currentParentNode.Key == currentParentNode.RedBlackTreeLeftChildNode.Key)
+                if (insertTreeNode.RedBlackParent.Key ==
+                    insertTreeNode.RedBlackParent.RedBlackParent.RightChildNode.Key)
                 {
-                    if (currentParentNode.NodeColor == Color.Red &&
-                        currentParentNode.RedBlackTreeRightChildNode.NodeColor == Color.Red)
+                    var uncleParentNode = insertTreeNode.RedBlackParent.RedBlackParent.RedBlackLeftChildNode;
+                    if (uncleParentNode.NodeColor == Color.Red)
                     {
-                        currentParentNode.NodeColor = Color.Black;
-                        currentParentNode.RedBlackTreeRightChildNode.NodeColor = Color.Black;
-                        currentNode = currentParentNode.RedBlackTreeParent;
+                        insertTreeNode.RedBlackParent.NodeColor = Color.Black;
+                        uncleParentNode.NodeColor = Color.Black;
+                        currentNode.RedBlackParent.RedBlackParent.NodeColor = Color.Red;
+                        currentNode = currentNode.RedBlackParent.RedBlackParent;
+                    }
+                    else
+                    {
+                        if (currentNode.Key == currentNode.RedBlackParent.LeftChildNode.Key)
+                        {
+                            currentNode = currentNode.RedBlackParent;
+                            currentNode.RightRotate();
+                        }
+
+                        currentNode.RedBlackParent.NodeColor = Color.Black;
+                        currentNode.RedBlackParent.RedBlackParent.NodeColor = Color.Red;
+                        currentNode.RedBlackParent.RedBlackParent.LeftRotate();
                     }
                 }
-                else
+                else if (insertTreeNode.RedBlackParent.Key ==
+                         insertTreeNode.RedBlackParent.RedBlackParent.LeftChildNode.Key)
                 {
-                    
+                    var uncleParentNode = insertTreeNode.RedBlackParent.RedBlackParent.RedBlackRightChildNode;
+                    if (uncleParentNode.NodeColor == Color.Red)
+                    {
+                        insertTreeNode.RedBlackParent.NodeColor = Color.Black;
+                        uncleParentNode.NodeColor = Color.Black;
+                        currentNode.RedBlackParent.RedBlackParent.NodeColor = Color.Red;
+                        currentNode = currentNode.RedBlackParent.RedBlackParent;
+                    }
+                    else
+                    {
+                        if (currentNode.Key == currentNode.RedBlackParent.RightChildNode.Key)
+                        {
+                            currentNode = currentNode.RedBlackParent;
+                            currentNode.LeftRotate();
+                        }
+
+                        currentNode.RedBlackParent.NodeColor = Color.Black;
+                        currentNode.RedBlackParent.RedBlackParent.NodeColor = Color.Red;
+                        currentNode.RedBlackParent.RedBlackParent.RightRotate();
+                    }
                 }
             }
-            else
-            {
-                lastInsertRedBlackTreeNode.NodeColor = Color.Black;
-            }
 
-            
+            var root = currentNode.GetRoot() as RedBlackTreeNode;
+            if (root != null)
+                root.NodeColor = Color.Black;
+            return root;
         }
 
         public bool InsertRedBlackTreeNode(ref RedBlackTreeNode redBlackTree, RedBlackTreeNode insertRedBlackTreeNode)
@@ -40,14 +72,31 @@ namespace Domain.Tree.RedBlackTree.Service
             var bianryTree = redBlackTree as BinaryTreeNode;
             var insertTreeNode = insertRedBlackTreeNode as BinaryTreeNode;
             InsertBinaryTreeNode(ref bianryTree, ref insertTreeNode);
-            var res = fixRedBlackTreeAfterInsert(insertTreeNode as RedBlackTreeNode);
-            return res;
+            var redBlackTreeFixed = fixRedBlackTreeAfterInsert(insertTreeNode as RedBlackTreeNode);
+            return true;
         }
-        
 
-        public bool DeleteRedBlackTreeNode(RedBlackTreeNode redBlackTree, int key)
+        public void DeleteRedBlackTreeNode(RedBlackTreeNode redBlackTree, int key)
         {
-            throw new System.NotImplementedException();
+            var deleteBinaryTreeNode = TreeSearch(redBlackTree, key);
+            if (deleteBinaryTreeNode.LeftChildNode == null)
+                deleteBinaryTreeNode.Transplant(deleteBinaryTreeNode.RightChildNode);
+            else if (deleteBinaryTreeNode.RightChildNode == null)
+                deleteBinaryTreeNode.Transplant(deleteBinaryTreeNode.LeftChildNode);
+            else
+            {
+                var behindChildNode = deleteBinaryTreeNode.RightChildNode.TreeMinimum();
+                if (behindChildNode.Parent.Key != deleteBinaryTreeNode.Key)
+                {
+                    behindChildNode.Transplant(behindChildNode.RightChildNode);
+                    behindChildNode.RightChildNode = deleteBinaryTreeNode.RightChildNode;
+                    behindChildNode.RightChildNode.Parent = behindChildNode;
+                }
+
+                deleteBinaryTreeNode.Transplant(behindChildNode);
+                behindChildNode.LeftChildNode = deleteBinaryTreeNode.LeftChildNode;
+                behindChildNode.LeftChildNode.Parent = behindChildNode;
+            }
         }
     }
 }

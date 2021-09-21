@@ -22,5 +22,19 @@
             return currentTreeNode;
         }
         
+        public void Transplant(BinaryTreeNode behindChildNode)
+        {
+            var currentBinaryTreeNode = this;
+            if (currentBinaryTreeNode.Parent == null)
+                behindChildNode.IsRoot = true;
+            else if (currentBinaryTreeNode.Parent.LeftChildNode.Key == currentBinaryTreeNode.Key)
+                currentBinaryTreeNode.Parent.LeftChildNode = behindChildNode;
+            else
+                currentBinaryTreeNode.Parent.RightChildNode = behindChildNode;
+            if (behindChildNode != null)
+            {
+                behindChildNode.Parent = currentBinaryTreeNode.Parent;
+            }
+        }
     }
 }
