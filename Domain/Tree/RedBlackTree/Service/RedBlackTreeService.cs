@@ -76,27 +76,121 @@ namespace Domain.Tree.RedBlackTree.Service
             return true;
         }
 
-        public void DeleteRedBlackTreeNode(RedBlackTreeNode redBlackTree, int key)
+        public void DeleteRedBlackTreeNode(ref RedBlackTreeNode redBlackTree, int key)
         {
-            var deleteBinaryTreeNode = TreeSearch(redBlackTree, key);
-            if (deleteBinaryTreeNode.LeftChildNode == null)
-                deleteBinaryTreeNode.Transplant(deleteBinaryTreeNode.RightChildNode);
-            else if (deleteBinaryTreeNode.RightChildNode == null)
-                deleteBinaryTreeNode.Transplant(deleteBinaryTreeNode.LeftChildNode);
+            if (!(TreeSearch(redBlackTree, key) is RedBlackTreeNode deletedRedBlackTreeNode)) return;
+            var originalColor = deletedRedBlackTreeNode.NodeColor;
+            var xPoint = deletedRedBlackTreeNode;
+            if (deletedRedBlackTreeNode.LeftChildNode == null)
+            {
+                xPoint = deletedRedBlackTreeNode.RedBlackRightChildNode;
+                deletedRedBlackTreeNode.Transplant( deletedRedBlackTreeNode.RedBlackRightChildNode);
+            }
+            else if (deletedRedBlackTreeNode.RightChildNode == null)
+            {
+                xPoint = deletedRedBlackTreeNode.RedBlackLeftChildNode;
+                deletedRedBlackTreeNode.Transplant(deletedRedBlackTreeNode.LeftChildNode);
+            }
             else
             {
-                var behindChildNode = deleteBinaryTreeNode.RightChildNode.TreeMinimum();
-                if (behindChildNode.Parent.Key != deleteBinaryTreeNode.Key)
+                var behindChildNode = deletedRedBlackTreeNode.RightChildNode.TreeMinimum() as RedBlackTreeNode;
+                originalColor = behindChildNode.NodeColor;
+                xPoint = behindChildNode.RedBlackRightChildNode;
+                if (behindChildNode.Parent.Key != deletedRedBlackTreeNode.Key)
                 {
                     behindChildNode.Transplant(behindChildNode.RightChildNode);
-                    behindChildNode.RightChildNode = deleteBinaryTreeNode.RightChildNode;
+                    behindChildNode.RightChildNode = deletedRedBlackTreeNode.RightChildNode;
                     behindChildNode.RightChildNode.Parent = behindChildNode;
                 }
 
-                deleteBinaryTreeNode.Transplant(behindChildNode);
-                behindChildNode.LeftChildNode = deleteBinaryTreeNode.LeftChildNode;
+                deletedRedBlackTreeNode.Transplant(behindChildNode);
+                behindChildNode.LeftChildNode = deletedRedBlackTreeNode.LeftChildNode;
                 behindChildNode.LeftChildNode.Parent = behindChildNode;
             }
+
+            if (originalColor == Color.Black)
+            {
+                fixRedBlackTreeAfterDelete(xPoint);
+            }
+
+        }
+
+        private void fixRedBlackTreeAfterDelete(RedBlackTreeNode xPoint)
+        {
+            while (!xPoint.IsRoot & xPoint.NodeColor == Color.Black)
+            {
+                if (xPoint.RedBlackParent.RedBlackLeftChildNode.Key == xPoint.Key)
+                {
+                    var wPoint = xPoint.RedBlackParent.RedBlackRightChildNode;
+                    if (xPoint.NodeColor == Color.Black && wPoint.NodeColor == Color.Red)
+                    {
+                        wPoint.NodeColor = Color.Black;
+                        wPoint.RedBlackParent.NodeColor = Color.Red;
+                        wPoint.RedBlackParent.LeftRotate();
+                        wPoint = xPoint.RedBlackParent.RedBlackRightChildNode;
+                    }
+                    if (wPoint.NodeColor == Color.Black && wPoint.RedBlackLeftChildNode.NodeColor == Color.Black &&
+                        wPoint.RedBlackRightChildNode.NodeColor == Color.Black)
+                    {
+                        wPoint.NodeColor = Color.Red;
+                        xPoint = xPoint.RedBlackParent;
+                    }
+                    else
+                    {
+                        if (wPoint.RedBlackLeftChildNode.NodeColor == Color.Red &&
+                            wPoint.RedBlackRightChildNode.NodeColor == Color.Black)
+                        {
+                            wPoint.NodeColor = Color.Red;
+                            wPoint.RedBlackLeftChildNode.NodeColor = Color.Black;
+                            wPoint.RightRotate();
+                            wPoint = wPoint.RedBlackParent;
+                        }
+                        if (wPoint.NodeColor == Color.Black && wPoint.RedBlackRightChildNode.NodeColor == Color.Red)
+                        {
+                            wPoint.NodeColor = xPoint.RedBlackParent.NodeColor;
+                            xPoint.RedBlackParent.NodeColor = Color.Black;
+                            wPoint.RedBlackRightChildNode.NodeColor = Color.Black;
+                            wPoint.RedBlackParent.LeftRotate();
+                        }
+                    }
+                }
+                else if (xPoint.RedBlackParent.RedBlackRightChildNode.Key == xPoint.Key)
+                {
+                    var wPoint = xPoint.RedBlackParent.RedBlackLeftChildNode;
+                    if (xPoint.NodeColor == Color.Black && wPoint.NodeColor == Color.Red)
+                    {
+                        wPoint.NodeColor = Color.Black;
+                        wPoint.RedBlackParent.NodeColor = Color.Red;
+                        wPoint.RedBlackParent.RightRotate();
+                        wPoint = xPoint.RedBlackParent.RedBlackLeftChildNode;
+                    }
+                    if (wPoint.NodeColor == Color.Black && wPoint.RedBlackLeftChildNode.NodeColor == Color.Black &&
+                        wPoint.RedBlackRightChildNode.NodeColor == Color.Black)
+                    {
+                        wPoint.NodeColor = Color.Red;
+                        xPoint = xPoint.RedBlackParent;
+                    }
+                    else
+                    {
+                        if (wPoint.RedBlackRightChildNode.NodeColor == Color.Red &&
+                            wPoint.RedBlackLeftChildNode.NodeColor == Color.Black)
+                        {
+                            wPoint.NodeColor = Color.Red;
+                            wPoint.RedBlackRightChildNode.NodeColor = Color.Black;
+                            wPoint.LeftRotate();
+                            wPoint = wPoint.RedBlackParent;
+                        }
+                        if (wPoint.NodeColor == Color.Black && wPoint.RedBlackLeftChildNode.NodeColor == Color.Red)
+                        {
+                            wPoint.NodeColor = xPoint.RedBlackParent.NodeColor;
+                            xPoint.RedBlackParent.NodeColor = Color.Black;
+                            wPoint.RedBlackLeftChildNode.NodeColor = Color.Black;
+                            wPoint.RedBlackParent.RightRotate();
+                        }
+                    }
+                }
+            }
+            xPoint.NodeColor = Color.Black;
         }
     }
 }
