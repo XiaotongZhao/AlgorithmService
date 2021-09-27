@@ -20,15 +20,15 @@ namespace Domain.Tree.RedBlackTree.Service
         private RedBlackTreeNode fixRedBlackTreeAfterInsert(RedBlackTreeNode insertTreeNode)
         {
             var currentNode = insertTreeNode;
-            while (insertTreeNode.Parent?.NodeColor == Color.Red)
+            while (currentNode.Parent?.NodeColor == Color.Red)
             {
-                if (insertTreeNode.Parent.Key ==
-                    insertTreeNode.Parent.Parent.RightChildNode.Key)
+                if (currentNode.Parent.Key ==
+                    currentNode.Parent.Parent.RightChildNode.Key)
                 {
-                    var uncleParentNode = insertTreeNode.Parent.Parent.LeftChildNode;
+                    var uncleParentNode = currentNode.Parent.Parent.LeftChildNode;
                     if (uncleParentNode.NodeColor == Color.Red)
                     {
-                        insertTreeNode.Parent.NodeColor = Color.Black;
+                        currentNode.Parent.NodeColor = Color.Black;
                         uncleParentNode.NodeColor = Color.Black;
                         currentNode.Parent.Parent.NodeColor = Color.Red;
                         currentNode = currentNode.Parent.Parent;
@@ -46,13 +46,13 @@ namespace Domain.Tree.RedBlackTree.Service
                         currentNode.Parent.Parent.LeftRotate();
                     }
                 }
-                else if (insertTreeNode.Parent.Key ==
-                         insertTreeNode.Parent.Parent.LeftChildNode.Key)
+                else if (currentNode.Parent.Key ==
+                         currentNode.Parent.Parent.LeftChildNode.Key)
                 {
-                    var uncleParentNode = insertTreeNode.Parent.Parent.RightChildNode;
+                    var uncleParentNode = currentNode.Parent.Parent.RightChildNode;
                     if (uncleParentNode.NodeColor == Color.Red)
                     {
-                        insertTreeNode.Parent.NodeColor = Color.Black;
+                        currentNode.Parent.NodeColor = Color.Black;
                         uncleParentNode.NodeColor = Color.Black;
                         currentNode.Parent.Parent.NodeColor = Color.Red;
                         currentNode = currentNode.Parent.Parent;
@@ -78,7 +78,7 @@ namespace Domain.Tree.RedBlackTree.Service
             return root;
         }
 
-        public bool InsertRedBlackTreeNode(ref RedBlackTreeNode redBlackTree, RedBlackTreeNode insertRedBlackTreeNode)
+        public void InsertRedBlackTreeNode(ref RedBlackTreeNode redBlackTree, RedBlackTreeNode insertRedBlackTreeNode)
         {
             if (redBlackTree == null)
             {
@@ -89,7 +89,7 @@ namespace Domain.Tree.RedBlackTree.Service
             {
                 var currentNode = (RedBlackTreeNode)redBlackTree.GetRoot();
                 RedBlackTreeNode tempTreeNode = null;
-                while (!currentNode.IsNil)
+                while (currentNode != null)
                 {
                     tempTreeNode = currentNode;
                     currentNode = currentNode.Key > insertRedBlackTreeNode.Key
@@ -107,8 +107,7 @@ namespace Domain.Tree.RedBlackTree.Service
                     insertRedBlackTreeNode.Parent = currentNode;
                 }
             }
-            var redBlackTreeFixed = fixRedBlackTreeAfterInsert(insertRedBlackTreeNode);
-            return true;
+            redBlackTree = fixRedBlackTreeAfterInsert(insertRedBlackTreeNode);
         }
 
         private void fixRedBlackTreeAfterDelete(RedBlackTreeNode xPoint)

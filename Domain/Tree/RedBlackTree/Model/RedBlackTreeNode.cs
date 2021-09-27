@@ -5,10 +5,13 @@ namespace Domain.Tree.RedBlackTree.Model
     public class RedBlackTreeNode
     {
         public int Key;
-        public bool IsNil;
         public bool IsRoot;
         public Color NodeColor = Color.Red;
+        public RedBlackTreeNode Parent;
 
+        public RedBlackTreeNode LeftChildNode;
+        public RedBlackTreeNode RightChildNode;
+        
         public RedBlackTreeNode GetRoot()
         {
             RedBlackTreeNode currentNode = this;
@@ -22,21 +25,7 @@ namespace Domain.Tree.RedBlackTree.Model
             }
             return currentNode;
         }
-
-
-        public RedBlackTreeNode Parent;
-
-        public RedBlackTreeNode LeftChildNode = new RedBlackTreeNode()
-        {
-            NodeColor = Color.Black, IsNil = true, Key = 0
-        };
-       
-
-        public RedBlackTreeNode RightChildNode = new RedBlackTreeNode()
-        {
-            NodeColor = Color.Black, IsNil = true, Key = 0
-        };
-
+        
         public void Transplant(RedBlackTreeNode behindChildNode)
         {
             var currentNode = this;
@@ -54,22 +43,32 @@ namespace Domain.Tree.RedBlackTree.Model
 
         public void LeftRotate()
         {
-            var currentTRightChildNode = this.RightChildNode;
-            if (this.Parent.LeftChildNode.Key == this.Key)
-                this.Parent.LeftChildNode = currentTRightChildNode;
+            var currentRightChildNode = this.RightChildNode;
+            if (this.Parent == null)
+            {
+                currentRightChildNode.IsRoot = true;
+                currentRightChildNode.Parent = null;
+            }
+            else if (this.Parent.LeftChildNode.Key == this.Key)
+                this.Parent.LeftChildNode = currentRightChildNode;
             else
-                this.Parent.RightChildNode = currentTRightChildNode;
-            currentTRightChildNode.Parent = this.Parent;
-            this.RightChildNode = currentTRightChildNode.LeftChildNode;
-            currentTRightChildNode.LeftChildNode.Parent = this;
-            currentTRightChildNode.LeftChildNode = this;
-            this.Parent = currentTRightChildNode;
+                this.Parent.RightChildNode = currentRightChildNode;
+            currentRightChildNode.Parent = this.Parent;
+            this.RightChildNode = currentRightChildNode.LeftChildNode;
+            currentRightChildNode.LeftChildNode.Parent = this;
+            currentRightChildNode.LeftChildNode = this;
+            this.Parent = currentRightChildNode;
         }
 
         public void RightRotate()
         {
             var currentLeftChildNode = this.LeftChildNode;
-            if (this.Parent.LeftChildNode.Key == this.Key)
+            if (this.Parent == null)
+            {
+                currentLeftChildNode.IsRoot = true;
+                currentLeftChildNode.Parent = null;
+            }
+            else if (this.Parent.LeftChildNode.Key == this.Key)
                 this.Parent.LeftChildNode = currentLeftChildNode;
             else
                 this.Parent.RightChildNode = currentLeftChildNode;
