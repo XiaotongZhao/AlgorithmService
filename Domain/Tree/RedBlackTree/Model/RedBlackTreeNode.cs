@@ -2,18 +2,31 @@ using Domain.Tree.BinaryTree.Model;
 
 namespace Domain.Tree.RedBlackTree.Model
 {
-    public class RedBlackTreeNode : BinaryTreeNode
+    public class RedBlackTreeNode
     {
-        public bool IsNil { get; set; }
-        public Color NodeColor { get; set; }
+        public int Key;
+        public bool IsNil;
+        public bool IsRoot;
+        public Color NodeColor = Color.Red;
 
-        public RedBlackTreeNode RedBlackParent
+        public RedBlackTreeNode GetRoot()
         {
-            set { this.Parent = value; }
-            get => this.Parent as RedBlackTreeNode;
+            RedBlackTreeNode currentNode = this;
+            if (currentNode.Parent == null)
+            {
+                currentNode.IsRoot = true;
+            }
+            while (currentNode != null && currentNode.IsRoot == false)
+            {
+                currentNode = currentNode.Parent;
+            }
+            return currentNode;
         }
 
-        public RedBlackTreeNode RedBlackLeftChildNode
+
+        public RedBlackTreeNode Parent;
+
+        public RedBlackTreeNode LeftChildNode
         {
             set => this.LeftChildNode = value;
             get
@@ -22,11 +35,11 @@ namespace Domain.Tree.RedBlackTree.Model
                 {
                     return new RedBlackTreeNode() { NodeColor = Color.Black, IsNil = true, Key = 0 };
                 }
-                return this.LeftChildNode as RedBlackTreeNode;
+                return this.LeftChildNode;
             }
         }
 
-        public RedBlackTreeNode RedBlackRightChildNode
+        public RedBlackTreeNode RightChildNode
         {
             set => this.RightChildNode = value;
             get
@@ -35,37 +48,61 @@ namespace Domain.Tree.RedBlackTree.Model
                 {
                     return new RedBlackTreeNode() { NodeColor = Color.Black, IsNil = true, Key = 0 };
                 }
-                return this.RightChildNode as RedBlackTreeNode;
+                return this.RightChildNode;
             }
         }
 
+        public void Transplant(RedBlackTreeNode behindChildNode)
+        {
+            var currentNode = this;
+            if (currentNode.Parent == null)
+                behindChildNode.IsRoot = true;
+            else if (currentNode.Parent.LeftChildNode.Key == currentNode.Key)
+                currentNode.Parent.LeftChildNode = behindChildNode;
+            else
+                currentNode.Parent.RightChildNode = behindChildNode;
+            if (behindChildNode != null)
+            {
+                behindChildNode.Parent = currentNode.Parent;
+            }
+        }
 
         public void LeftRotate()
         {
-            var currentRedBlackTreeRightChildNode = this.RedBlackRightChildNode;
-            if (this.RedBlackParent.RedBlackLeftChildNode.Key == this.Key)
-                this.RedBlackParent.RedBlackLeftChildNode = currentRedBlackTreeRightChildNode;
+            var currentTRightChildNode = this.RightChildNode;
+            if (this.Parent.LeftChildNode.Key == this.Key)
+                this.Parent.LeftChildNode = currentTRightChildNode;
             else
-                this.RedBlackParent.RightChildNode = currentRedBlackTreeRightChildNode;
-            currentRedBlackTreeRightChildNode.RedBlackParent = this.RedBlackParent;
-            this.RightChildNode = currentRedBlackTreeRightChildNode.RedBlackLeftChildNode;
-            currentRedBlackTreeRightChildNode.RedBlackLeftChildNode.RedBlackParent = this;
-            currentRedBlackTreeRightChildNode.RedBlackLeftChildNode = this;
-            this.RedBlackParent = currentRedBlackTreeRightChildNode;
+                this.Parent.RightChildNode = currentTRightChildNode;
+            currentTRightChildNode.Parent = this.Parent;
+            this.RightChildNode = currentTRightChildNode.LeftChildNode;
+            currentTRightChildNode.LeftChildNode.Parent = this;
+            currentTRightChildNode.LeftChildNode = this;
+            this.Parent = currentTRightChildNode;
         }
 
         public void RightRotate()
         {
-            var currentRedBlackTreeLeftChildNode = this.RedBlackLeftChildNode;
-            if (this.RedBlackParent.RedBlackLeftChildNode.Key == this.Key)
-                this.RedBlackParent.RedBlackLeftChildNode = currentRedBlackTreeLeftChildNode;
+            var currentLeftChildNode = this.LeftChildNode;
+            if (this.Parent.LeftChildNode.Key == this.Key)
+                this.Parent.LeftChildNode = currentLeftChildNode;
             else
-                this.RedBlackParent.RedBlackRightChildNode = currentRedBlackTreeLeftChildNode;
-            currentRedBlackTreeLeftChildNode.RedBlackParent = this.RedBlackParent;
-            this.LeftChildNode = currentRedBlackTreeLeftChildNode.RedBlackRightChildNode;
-            currentRedBlackTreeLeftChildNode.RedBlackRightChildNode.RedBlackParent = this;
-            currentRedBlackTreeLeftChildNode.RedBlackRightChildNode = this;
-            this.RedBlackParent = currentRedBlackTreeLeftChildNode;
+                this.Parent.RightChildNode = currentLeftChildNode;
+            currentLeftChildNode.Parent = this.Parent;
+            this.LeftChildNode = currentLeftChildNode.RightChildNode;
+            currentLeftChildNode.RightChildNode.Parent = this;
+            currentLeftChildNode.RightChildNode = this;
+            this.Parent = currentLeftChildNode;
+        }
+        
+        public RedBlackTreeNode TreeMinimum()
+        {
+            var currentTreeNode = this;
+            while (currentTreeNode.LeftChildNode != null)
+            {
+                currentTreeNode = currentTreeNode.LeftChildNode;
+            }
+            return currentTreeNode;
         }
     }
 
