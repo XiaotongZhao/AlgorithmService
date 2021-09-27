@@ -26,31 +26,16 @@ namespace Domain.Tree.RedBlackTree.Model
 
         public RedBlackTreeNode Parent;
 
-        public RedBlackTreeNode LeftChildNode
+        public RedBlackTreeNode LeftChildNode = new RedBlackTreeNode()
         {
-            set => this.LeftChildNode = value;
-            get
-            {
-                if (this.LeftChildNode == null)
-                {
-                    return new RedBlackTreeNode() { NodeColor = Color.Black, IsNil = true, Key = 0 };
-                }
-                return this.LeftChildNode;
-            }
-        }
+            NodeColor = Color.Black, IsNil = true, Key = 0
+        };
+       
 
-        public RedBlackTreeNode RightChildNode
+        public RedBlackTreeNode RightChildNode = new RedBlackTreeNode()
         {
-            set => this.RightChildNode = value;
-            get
-            {
-                if (this.RightChildNode == null)
-                {
-                    return new RedBlackTreeNode() { NodeColor = Color.Black, IsNil = true, Key = 0 };
-                }
-                return this.RightChildNode;
-            }
-        }
+            NodeColor = Color.Black, IsNil = true, Key = 0
+        };
 
         public void Transplant(RedBlackTreeNode behindChildNode)
         {
