@@ -59,6 +59,27 @@ namespace AlgorithmServiceUnitTest
             Assert.True(root.RightChildNode.RightChildNode.NodeColor == Color.Black);
             Assert.True(root.RightChildNode.RightChildNode.RightChildNode.NodeColor == Color.Red);
         }
+        
+        [Fact]
+        public void TestInsertRedBlackTreeNodeWithRightOrLeftRotate()
+        {
+            int[] keys = { 11, 2, 18, 1, 14, 20, 13, 15, 4, 12 };
+            using var scope = startupFixture.ServiceProvider.CreateScope();
+            var redBlackTreeService = scope.ServiceProvider.GetService<IRedBlackTreeService>();
+            if (redBlackTreeService == null) return;
+            var tree = redBlackTreeService.CreateRedBlackTree(keys);
+            var root = tree.GetRoot();
+            Assert.True(root.NodeColor == Color.Black);
+            Assert.True(root.LeftChildNode.NodeColor == Color.Red);
+            Assert.True(root.LeftChildNode.LeftChildNode.NodeColor == Color.Black);
+            Assert.True(root.LeftChildNode.RightChildNode.NodeColor == Color.Black);
+            Assert.True(root.LeftChildNode.LeftChildNode.LeftChildNode.NodeColor == Color.Red);
+            Assert.True(root.LeftChildNode.RightChildNode.LeftChildNode.NodeColor == Color.Red);
+            Assert.True(root.RightChildNode.NodeColor == Color.Red);
+            Assert.True(root.RightChildNode.LeftChildNode.NodeColor == Color.Black);
+            Assert.True(root.RightChildNode.RightChildNode.NodeColor == Color.Black);
+        }
+        
 
         [Fact]
         public void TestLeftRotate()

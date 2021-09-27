@@ -9,5 +9,6 @@
     &lt;TestId&gt;xUnit::845168C9-86A1-499B-AF84-D4E5EA0D1096::net5.0::AlgorithmServiceUnitTest.RedBlackTreeUnitTest.TestInsertRedBlackTreeNode&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::845168C9-86A1-499B-AF84-D4E5EA0D1096::net5.0::AlgorithmServiceUnitTest.RedBlackTreeUnitTest.TestInsertRedBlackTreeNodeWithLeftOrRightRotate&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::845168C9-86A1-499B-AF84-D4E5EA0D1096::net5.0::AlgorithmServiceUnitTest.RedBlackTreeUnitTest.TestInsertRedBlackTreeNodeNotLeftOrRightRotate&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::845168C9-86A1-499B-AF84-D4E5EA0D1096::net5.0::AlgorithmServiceUnitTest.RedBlackTreeUnitTest.TestInsertRedBlackTreeNodeWithRightOrLeftRotate&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
