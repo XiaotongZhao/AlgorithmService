@@ -89,6 +89,48 @@ namespace AlgorithmServiceUnitTest
             if (redBlackTreeService == null) return;
             var tree = redBlackTreeService.CreateRedBlackTree(keys);
             redBlackTreeService.DeleteRedBlackTreeNode(ref tree, 1);
+            var root = tree.GetRoot();
+            Assert.True(root.NodeColor == Color.Black && root.Key == 7);
+            Assert.True(root.LeftChildNode.NodeColor == Color.Red && root.LeftChildNode.Key == 4);
+            Assert.True(root.LeftChildNode.LeftChildNode.NodeColor == Color.Black && root.LeftChildNode.LeftChildNode.Key == 2);
+            Assert.True(root.LeftChildNode.RightChildNode.NodeColor == Color.Black && root.LeftChildNode.RightChildNode.Key == 5);
+            Assert.True(root.RightChildNode.NodeColor == Color.Red && root.RightChildNode.Key == 11);
+            Assert.True(root.RightChildNode.LeftChildNode.NodeColor == Color.Black && root.RightChildNode.LeftChildNode.Key == 8);
+            Assert.True(root.RightChildNode.RightChildNode.NodeColor == Color.Black && root.RightChildNode.RightChildNode.Key == 14);
+            Assert.True(root.RightChildNode.RightChildNode.RightChildNode.NodeColor == Color.Red && root.RightChildNode.RightChildNode.RightChildNode.Key == 15);
+        }
+
+        [Fact]
+        public void TestDeleteRedBlackTreeNodeOtherSituation()
+        {
+            int[] keys = { 510, 82, 830, 11, 383, 647, 899, 261, 410, 815, 888, 972, 238, 292, 963 };
+            using var scope = startupFixture.ServiceProvider.CreateScope();
+            var redBlackTreeService = scope.ServiceProvider.GetService<IRedBlackTreeService>();
+            if (redBlackTreeService == null) return;
+            var tree = redBlackTreeService.CreateRedBlackTree(keys);
+            redBlackTreeService.DeleteRedBlackTreeNode(ref tree, 11);
+            var root = tree.GetRoot();
+            Assert.True(root.NodeColor == Color.Black && root.Key == 510);
+            Assert.True(root.LeftChildNode.NodeColor == Color.Black && root.LeftChildNode.Key == 383);
+            Assert.True(root.LeftChildNode.LeftChildNode.NodeColor == Color.Red && root.LeftChildNode.LeftChildNode.Key == 261);
+            Assert.True(root.LeftChildNode.RightChildNode.NodeColor == Color.Black && root.LeftChildNode.RightChildNode.Key == 410);
+            Assert.True(root.LeftChildNode.LeftChildNode.LeftChildNode.NodeColor == Color.Black && root.LeftChildNode.LeftChildNode.LeftChildNode.Key == 82);
+            Assert.True(root.LeftChildNode.LeftChildNode.RightChildNode.NodeColor == Color.Black && root.LeftChildNode.LeftChildNode.RightChildNode.Key == 292);
+            Assert.True(root.LeftChildNode.LeftChildNode.LeftChildNode.RightChildNode.NodeColor == Color.Red && root.LeftChildNode.LeftChildNode.LeftChildNode.RightChildNode.Key == 238);
+            Assert.True(root.RightChildNode.NodeColor == Color.Black && root.RightChildNode.Key == 830);
+            Assert.True(root.RightChildNode.LeftChildNode.NodeColor == Color.Black && root.RightChildNode.LeftChildNode.Key == 647);
+            Assert.True(root.RightChildNode.RightChildNode.NodeColor == Color.Red && root.RightChildNode.RightChildNode.Key == 899);
+            Assert.True(root.RightChildNode.LeftChildNode.RightChildNode.NodeColor == Color.Red && root.RightChildNode.LeftChildNode.RightChildNode.Key == 815);
+            Assert.True(root.RightChildNode.RightChildNode.LeftChildNode.NodeColor == Color.Black && root.RightChildNode.RightChildNode.LeftChildNode.Key == 888);
+            Assert.True(root.RightChildNode.RightChildNode.RightChildNode.NodeColor == Color.Black && root.RightChildNode.RightChildNode.RightChildNode.Key == 972);
+            Assert.True(root.RightChildNode.RightChildNode.RightChildNode.LeftChildNode.NodeColor == Color.Red && root.RightChildNode.RightChildNode.RightChildNode.LeftChildNode.Key == 963);
+            redBlackTreeService.DeleteRedBlackTreeNode(ref tree, 238);
+            Assert.True(root.NodeColor == Color.Black && root.Key == 510);
+            Assert.True(root.LeftChildNode.NodeColor == Color.Black && root.LeftChildNode.Key == 383);
+            Assert.True(root.LeftChildNode.LeftChildNode.NodeColor == Color.Red && root.LeftChildNode.LeftChildNode.Key == 261);
+            Assert.True(root.LeftChildNode.RightChildNode.NodeColor == Color.Black && root.LeftChildNode.RightChildNode.Key == 410);
+            Assert.True(root.LeftChildNode.LeftChildNode.LeftChildNode.NodeColor == Color.Black && root.LeftChildNode.LeftChildNode.LeftChildNode.Key == 82);
+            Assert.True(root.LeftChildNode.LeftChildNode.RightChildNode.NodeColor == Color.Black && root.LeftChildNode.LeftChildNode.RightChildNode.Key == 292);
         }
     }
 }

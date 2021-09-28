@@ -110,7 +110,7 @@ namespace Domain.Tree.RedBlackTree.Service
             redBlackTree = fixRedBlackTreeAfterInsert(insertRedBlackTreeNode);
         }
 
-        private void fixRedBlackTreeAfterDelete(RedBlackTreeNode xPoint)
+        private RedBlackTreeNode fixRedBlackTreeAfterDelete(RedBlackTreeNode xPoint)
         {
             while (!xPoint.IsRoot & xPoint.NodeColor == Color.Black)
             {
@@ -148,6 +148,7 @@ namespace Domain.Tree.RedBlackTree.Service
                             xPoint.Parent.NodeColor = Color.Black;
                             wPoint.RightChildNode.NodeColor = Color.Black;
                             wPoint.Parent.LeftRotate();
+                            xPoint = xPoint.GetRoot();
                         }
                     }
                 }
@@ -185,12 +186,16 @@ namespace Domain.Tree.RedBlackTree.Service
                             xPoint.Parent.NodeColor = Color.Black;
                             wPoint.LeftChildNode.NodeColor = Color.Black;
                             wPoint.Parent.RightRotate();
+                            xPoint = xPoint.GetRoot();
                         }
                     }
                 }
+                
             }
 
             xPoint.NodeColor = Color.Black;
+            var root = xPoint.GetRoot();
+            return root;
         }
 
         private RedBlackTreeNode treeSearch(RedBlackTreeNode redBlackTreeNode, int key)
@@ -209,12 +214,12 @@ namespace Domain.Tree.RedBlackTree.Service
             var deletedTreeNode = treeSearch(redBlackTree, key);
             var originalColor = deletedTreeNode.NodeColor;
             RedBlackTreeNode xPoint;
-            if (deletedTreeNode.LeftChildNode == null)
+            if (deletedTreeNode.LeftChildNode.IsNull)
             {
                 xPoint = deletedTreeNode.RightChildNode;
                 deletedTreeNode.Transplant(deletedTreeNode.RightChildNode);
             }
-            else if (deletedTreeNode.RightChildNode == null)
+            else if (deletedTreeNode.RightChildNode.IsNull)
             {
                 xPoint = deletedTreeNode.LeftChildNode;
                 deletedTreeNode.Transplant(deletedTreeNode.LeftChildNode);
@@ -238,7 +243,7 @@ namespace Domain.Tree.RedBlackTree.Service
 
             if (originalColor == Color.Black)
             {
-                fixRedBlackTreeAfterDelete(xPoint);
+                redBlackTree = fixRedBlackTreeAfterDelete(xPoint);
             }
         }
     }
