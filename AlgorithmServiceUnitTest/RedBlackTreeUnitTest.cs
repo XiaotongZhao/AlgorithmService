@@ -80,15 +80,15 @@ namespace AlgorithmServiceUnitTest
             Assert.True(root.RightChildNode.RightChildNode.NodeColor == Color.Black);
         }
         
-
-        [Fact]
-        public void TestLeftRotate()
-        {
-        }
-
         [Fact]
         public void TestDeleteRedBlackTreeNode()
         {
+            int[] keys = { 11, 2, 14, 1, 7, 15, 5, 8, 4 };
+            using var scope = startupFixture.ServiceProvider.CreateScope();
+            var redBlackTreeService = scope.ServiceProvider.GetService<IRedBlackTreeService>();
+            if (redBlackTreeService == null) return;
+            var tree = redBlackTreeService.CreateRedBlackTree(keys);
+            redBlackTreeService.DeleteRedBlackTreeNode(ref tree, 1);
         }
     }
 }

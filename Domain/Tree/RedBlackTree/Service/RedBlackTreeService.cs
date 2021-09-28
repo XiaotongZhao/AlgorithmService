@@ -89,7 +89,7 @@ namespace Domain.Tree.RedBlackTree.Service
             {
                 var currentNode = (RedBlackTreeNode)redBlackTree.GetRoot();
                 RedBlackTreeNode tempTreeNode = null;
-                while (currentNode != null)
+                while (!currentNode.IsNull)
                 {
                     tempTreeNode = currentNode;
                     currentNode = currentNode.Key > insertRedBlackTreeNode.Key

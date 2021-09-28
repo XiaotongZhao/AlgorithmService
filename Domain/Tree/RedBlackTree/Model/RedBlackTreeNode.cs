@@ -6,12 +6,42 @@ namespace Domain.Tree.RedBlackTree.Model
     {
         public int Key;
         public bool IsRoot;
+        public bool IsNull;
         public Color NodeColor = Color.Red;
         public RedBlackTreeNode Parent;
 
-        public RedBlackTreeNode LeftChildNode;
-        public RedBlackTreeNode RightChildNode;
-        
+        private RedBlackTreeNode leftChildNode;
+        private RedBlackTreeNode rightChildNode;
+
+
+        public RedBlackTreeNode LeftChildNode
+        {
+            set => leftChildNode = value;
+            get =>
+                leftChildNode ?? (leftChildNode = new RedBlackTreeNode()
+                {
+                    IsNull = true,
+                    Parent = this,
+                    leftChildNode = null,
+                    rightChildNode = null,
+                    NodeColor = Color.Black
+                });
+        }
+
+        public RedBlackTreeNode RightChildNode
+        {
+            set => rightChildNode = value;
+            get =>
+                rightChildNode ?? (rightChildNode = new RedBlackTreeNode()
+                {
+                    IsNull = true,
+                    Parent = this,
+                    leftChildNode = null,
+                    rightChildNode = null,
+                    NodeColor = Color.Black
+                });
+        }
+
         public RedBlackTreeNode GetRoot()
         {
             RedBlackTreeNode currentNode = this;
@@ -19,13 +49,15 @@ namespace Domain.Tree.RedBlackTree.Model
             {
                 currentNode.IsRoot = true;
             }
+
             while (currentNode != null && currentNode.IsRoot == false)
             {
                 currentNode = currentNode.Parent;
             }
+
             return currentNode;
         }
-        
+
         public void Transplant(RedBlackTreeNode behindChildNode)
         {
             var currentNode = this;
@@ -53,6 +85,7 @@ namespace Domain.Tree.RedBlackTree.Model
                 this.Parent.LeftChildNode = currentRightChildNode;
             else
                 this.Parent.RightChildNode = currentRightChildNode;
+
             currentRightChildNode.Parent = this.Parent;
             this.RightChildNode = currentRightChildNode.LeftChildNode;
             currentRightChildNode.LeftChildNode.Parent = this;
@@ -72,19 +105,27 @@ namespace Domain.Tree.RedBlackTree.Model
                 this.Parent.LeftChildNode = currentLeftChildNode;
             else
                 this.Parent.RightChildNode = currentLeftChildNode;
+
             currentLeftChildNode.Parent = this.Parent;
             this.LeftChildNode = currentLeftChildNode.RightChildNode;
             currentLeftChildNode.RightChildNode.Parent = this;
             currentLeftChildNode.RightChildNode = this;
             this.Parent = currentLeftChildNode;
         }
-        
+
         public RedBlackTreeNode TreeMinimum()
         {
             var currentTreeNode = this;
-            while (currentTreeNode.LeftChildNode != null)
+            if (currentTreeNode.leftChildNode == null)
             {
                 currentTreeNode = currentTreeNode.LeftChildNode;
+            }
+            else
+            {
+                while (currentTreeNode.leftChildNode != null)
+                {
+                    currentTreeNode = currentTreeNode.leftChildNode;
+                }
             }
             return currentTreeNode;
         }
