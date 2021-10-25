@@ -5,9 +5,12 @@
 /.vs/AlgorithmService
 /AlgorithmService/bin/Debug/net5.0
 /AlgorithmService/obj
+/AlgorithmService/published
+/AlgorithmService/bin
 /Domain/.vs/Domain
 /Domain/bin/Debug/netstandard2.0
 /Domain/obj
+/Domain/bin
 /AlgorithmServiceUnitTest/bin/Debug/net5.0
 /AlgorithmServiceUnitTest/obj
 
