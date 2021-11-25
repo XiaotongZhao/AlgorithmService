@@ -5,8 +5,8 @@ orchestrator:
   version: 3
 workspace:
   dev-container:
-    service-name: boathouse-calculator
-    webide-port: 6800
+    service-name: smartide-dotnet
+    webide-port: 5050
     ide-type: vscode  #vscode/theia
     volumes: 
       git-config: true

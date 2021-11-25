@@ -4,7 +4,7 @@ orchestrator:
   version: 3
 workspace:
   dev-container:
-    service-name: boathouse-calculator
+    service-name: algorithm-service
     webide-port: 6800
     
     ports: # 申明端口
@@ -17,11 +17,10 @@ workspace:
       git-config: true
       ssh-key: true
     command:
-      - npm install
-      - npm start
+      - dotnet restore
   services:
-    boathouse-calculator:
-      image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-slim:latest
+    algorithm-service:
+      image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-dotnet:latest
       restart: always
       environment:
         ROOT_PASSWORD: root123
