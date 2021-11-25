@@ -6,7 +6,7 @@ orchestrator:
 workspace:
   dev-container:
     service-name: smartide-dotnet
-    webide-port: 5050
+    webide-port: 6800
     ide-type: vscode  #vscode/theia
     volumes: 
       git-config: true

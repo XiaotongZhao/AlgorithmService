@@ -18,6 +18,7 @@ workspace:
       ssh-key: true
     command:
       - dotnet restore
+      - dotnet build
   services:
     algorithm-service:
       image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-dotnet:latest

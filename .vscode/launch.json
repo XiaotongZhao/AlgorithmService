@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/AlgorithmService/bin/Debug/net5.0/AlgorithmService.dll",
+            "program": "${workspaceFolder}/AlgorithmService/bin/Debug/net6.0/AlgorithmService.dll",
             "args": [],
             "cwd": "${workspaceFolder}/AlgorithmService",
             "stopAtEntry": false,
