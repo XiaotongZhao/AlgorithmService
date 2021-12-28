@@ -3,7 +3,10 @@ using Domain.Algorithms.QuickSort.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using Dapr.Client;
 using Domain.Algorithms.DynamicPlanning;
+using Dapr;
+using Microsoft.Extensions.Logging;
 
 namespace AlgorithmService.Controllers
 {
@@ -11,11 +14,16 @@ namespace AlgorithmService.Controllers
     [ApiController]
     public class AlgorithmsController : ControllerBase
     {
+        private readonly ILogger<AlgorithmsController> logger;
+
+        private readonly DaprClient daprClient;
+        private readonly IConfiguration configuration;
         private readonly IQuickSortService quickSortService;
         private readonly IDynamicPlanningService dynamicPlanningService;
-        private readonly IConfiguration configuration;
-        public AlgorithmsController(IConfiguration configuration, IQuickSortService quickSortService, IDynamicPlanningService dynamicPlanningService)
+        public AlgorithmsController(ILogger<AlgorithmsController> logger, IConfiguration configuration, IQuickSortService quickSortService, IDynamicPlanningService dynamicPlanningService, DaprClient daprClient)
         {
+            this.logger = logger;
+            this.daprClient = daprClient;
             this.configuration = configuration;
             this.quickSortService = quickSortService;
             this.dynamicPlanningService = dynamicPlanningService;
@@ -48,5 +56,19 @@ namespace AlgorithmService.Controllers
         {
             return i;
         }
+
+        [Topic("pubsub", "speedingviolations")]
+        [Route("SubReciveData")]
+        [HttpPost]
+        public string SubReciveData(SendMessage message)
+        {
+            this.logger.LogInformation(message.Message);
+            return message.Message;
+        }
+    }
+
+    public class SendMessage
+    {
+        public string Message {get;set;}    
     }
 }

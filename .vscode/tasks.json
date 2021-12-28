@@ -37,6 +37,34 @@
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "dapr-debug",
+            "command": "daprd",
+            "args": [
+                "-dapr-id",
+                "algorithmService",
+                "-dapr-http-port",
+                "3060",
+                "-app-port",
+                "5050"
+            ],
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": ".",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3
+                    }
+                ],
+                "background": {
+                    "beginsPattern": "^.*starting Dapr Runtime.*",
+                    "endsPattern": "^.*waiting on port.*"
+                }
+            },
+            "dependsOn": "build"
         }
     ]
 }

@@ -28,7 +28,7 @@ namespace AlgorithmService
             services.AddScoped<IBinaryTreeService, BinaryTreeService>();
             services.AddScoped<IRedBlackTreeService, RedBlackTreeService>();
 
-            services.AddControllers();
+            services.AddControllers().AddDapr();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AlgorithmService", Version = "v1" });
@@ -51,9 +51,12 @@ namespace AlgorithmService
 
             app.UseAuthorization();
 
+            app.UseCloudEvents();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapSubscribeHandler();
             });
         }
     }
