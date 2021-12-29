@@ -42,7 +42,7 @@
             "label": "dapr-debug",
             "command": "daprd",
             "args": [
-                "-dapr-id",
+                "-app-id",
                 "algorithmService",
                 "-dapr-http-port",
                 "3060",
