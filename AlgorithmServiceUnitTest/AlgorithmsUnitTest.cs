@@ -50,13 +50,21 @@ namespace AlgorithmServiceUnitTest
 
 
         [Fact]
-        public async Task TestFib()
+        public void TestFibAsync()
         {
             using var scope = startupFixture.ServiceProvider.CreateScope();
             var parallelService = scope.ServiceProvider.GetService<IParallelService>();
-            var res = await parallelService.FibAsync(4);
+            var res = parallelService.FibAsync(4);
             Assert.True(res == 5);
-
+        }
+        
+        [Fact]
+        public void TestFib()
+        {
+            using var scope = startupFixture.ServiceProvider.CreateScope();
+            var parallelService = scope.ServiceProvider.GetService<IParallelService>();
+            var res = parallelService.Fib(4);
+            Assert.True(res == 5);
         }
     }
 }
