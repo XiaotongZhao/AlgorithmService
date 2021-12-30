@@ -63,6 +63,7 @@ namespace AlgorithmService.Controllers
         public string SubReciveData(SendMessage message)
         {
             this.logger.LogInformation(message.Message);
+            //throw new System.Exception();
             return message.Message;
         }
     }

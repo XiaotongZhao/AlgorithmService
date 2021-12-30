@@ -1,5 +1,6 @@
 ﻿using System;
 using Domain.Algorithms.DynamicPlanning;
+using Domain.Algorithms.Parallel;
 using Domain.Algorithms.QuickSort.Service;
 using Domain.Tree.BinaryTree.Service;
 using Domain.Tree.RedBlackTree.Service;
@@ -17,6 +18,7 @@ namespace AlgorithmServiceUnitTest
             services.AddScoped<IDynamicPlanningService, DynamicPlanningService>();
             services.AddScoped<IBinaryTreeService, BinaryTreeService>();
             services.AddScoped<IRedBlackTreeService, RedBlackTreeService>();
+            services.AddScoped<IParallelService, ParaleelService>();
 
             ServiceProvider = services.BuildServiceProvider();
         }

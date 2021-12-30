@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Algorithms\Parallel" />
     <Folder Include="Tree\BTree\Model" />
     <Folder Include="Tree\BTree\Service" />
   </ItemGroup>

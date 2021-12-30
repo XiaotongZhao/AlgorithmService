@@ -1,6 +1,8 @@
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Domain.Algorithms.DynamicPlanning;
+using Domain.Algorithms.Parallel;
 using Domain.Algorithms.QuickSort.Service;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -44,6 +46,17 @@ namespace AlgorithmServiceUnitTest
             var y = "BDCABA";
             var res = dynamicPlanningService.GetLongestCommonSubsequence(x, y);
             Assert.True(res.ToString() == "ABCB");
+        }
+
+
+        [Fact]
+        public async Task TestFib()
+        {
+            using var scope = startupFixture.ServiceProvider.CreateScope();
+            var parallelService = scope.ServiceProvider.GetService<IParallelService>();
+            var res = await parallelService.FibAsync(4);
+            Assert.True(res == 5);
+
         }
     }
 }
