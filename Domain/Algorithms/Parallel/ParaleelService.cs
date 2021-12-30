@@ -13,15 +13,15 @@ namespace Domain.Algorithms.Parallel
             else
             {
                 var left = Task.Run(() => FibAsync(index - 1));
-                var right = FibAsync(index - 2);
-                var res = left.Result + right;
+                var right = Task.Run(() => FibAsync(index - 2));
+                var res = left.Result + right.Result;
                 return res;
             }
         }
 
         public int Fib(int index)
         {
-            if (index == 0 || index == 1)
+            if (index <= 1)
                 return 1;
             else
                 return Fib(index - 1) + Fib(index - 2);
