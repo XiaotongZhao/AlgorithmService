@@ -6,5 +6,6 @@ namespace Domain.Algorithms.Parallel
     {
         Task<int> FibAsync(int index);
         int Fib(int index);
+        int[,] CalculateMatrix(int[,] matrixA, int[,] matrixB);
     }
 }

@@ -37,5 +37,27 @@ namespace Domain.Algorithms.Parallel
             var res = fib(index);
             return res;
         }
+
+        public int[,] CalculateMatrix(int[,] matrixA, int[,] matrixB)
+        {
+            var matrixAColumnCount = matrixA.GetLength(2);
+            var matrixARowCount = matrixA.GetLength(1);
+            var matrixBColumnCount = matrixB.GetLength(2);
+            var matrixBRowCount = matrixB.GetLength(1);
+            var calculateMatrix = new int[matrixARowCount, matrixBColumnCount];
+
+            if (matrixAColumnCount == matrixBRowCount)
+            {
+                for (var row = 0; row < matrixARowCount; row++)
+                {
+                    for (var column = 0; column < matrixBColumnCount; column++)
+                    {
+                        calculateMatrix[row, column] = matrixA[row, column] * matrixB[column, row];
+                    }
+                }
+            }
+
+            return calculateMatrix;
+        }
     }
 }
