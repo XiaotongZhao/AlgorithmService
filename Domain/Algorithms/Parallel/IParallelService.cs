@@ -4,7 +4,7 @@ namespace Domain.Algorithms.Parallel
 {
     public interface IParallelService
     {
-        int FibAsync(int index);
+        Task<int> FibAsync(int index);
         int Fib(int index);
     }
 }

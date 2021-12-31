@@ -54,7 +54,7 @@ namespace AlgorithmServiceUnitTest
         {
             using var scope = startupFixture.ServiceProvider.CreateScope();
             var parallelService = scope.ServiceProvider.GetService<IParallelService>();
-            var res = parallelService.FibAsync(30);
+            var res = parallelService.FibAsync(100);
             //Assert.True(res == 5);
         }
         
@@ -63,7 +63,7 @@ namespace AlgorithmServiceUnitTest
         {
             using var scope = startupFixture.ServiceProvider.CreateScope();
             var parallelService = scope.ServiceProvider.GetService<IParallelService>();
-            var res = parallelService.Fib(30);
+            var res = parallelService.Fib(100);
             //Assert.True(res == 5);
         }
     }

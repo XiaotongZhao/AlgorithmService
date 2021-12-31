@@ -4,7 +4,20 @@ namespace Domain.Algorithms.Parallel
 {
     public class ParaleelService : IParallelService
     {
-        public int FibAsync(int index)
+        private int fib(int index)
+        {
+            var res = new int[index + 1];
+            for (var i = 0; i <= index; i++)
+            {
+                if (i <= 1)
+                    res[i] = 1;
+                else
+                    res[i] = res[i - 1] + res[i - 2];
+            }
+            return res[index];
+        }
+
+        public async Task<int> FibAsync(int index)
         {
             if (index <= 1)
             {
@@ -12,19 +25,17 @@ namespace Domain.Algorithms.Parallel
             }
             else
             {
-                var left = Task.Run(() => FibAsync(index - 1));
-                var right = Task.Run(() => FibAsync(index - 2));
-                var res = left.Result + right.Result;
+                var left = Task.Run(() => fib(index - 1));
+                var right = Task.Run(() => fib(index - 2));
+                var res = await left + await right;
                 return res;
             }
         }
 
         public int Fib(int index)
         {
-            if (index <= 1)
-                return 1;
-            else
-                return Fib(index - 1) + Fib(index - 2);
+            var res = fib(index);
+            return res;
         }
     }
 }
