@@ -5,13 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+    <Compile Remove="Tree\BTree\**" />
+    <EmbeddedResource Remove="Tree\BTree\**" />
+    <None Remove="Tree\BTree\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Tree\BTree\Model" />
-    <Folder Include="Tree\BTree\Service" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
   </ItemGroup>
 
 </Project>
