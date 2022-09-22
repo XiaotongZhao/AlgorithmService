@@ -1,10 +1,4 @@
-﻿using AlgorithmService.Domain.Algorithms.DynamicPlanning;
-using AlgorithmService.Domain.Algorithms.Parallel;
-using AlgorithmService.Domain.Algorithms.QuickSort.Service;
-using AlgorithmService.Domain.Tree.BinaryTree.Service;
-using AlgorithmService.Domain.Tree.RedBlackTree.Service;
-
-namespace AlgorithmService.UnitTest;
+﻿namespace AlgorithmService.UnitTest;
 
 public class StartupFixture: IDisposable
 {
@@ -12,16 +6,27 @@ public class StartupFixture: IDisposable
     public StartupFixture()
     {
         var services = new ServiceCollection();
-        services.AddScoped<IQuickSortService, QuickSortService>();
-        services.AddScoped<IDynamicPlanningService, DynamicPlanningService>();
-        services.AddScoped<IBinaryTreeService, BinaryTreeService>();
-        services.AddScoped<IRedBlackTreeService, RedBlackTreeService>();
-        services.AddScoped<IParallelService, ParaleelService>();
-
+        implementDIByScanLibrary(services);
         ServiceProvider = services.BuildServiceProvider();
     }
 
     public void Dispose()
     {
+    }
+
+    public void implementDIByScanLibrary(ServiceCollection services)
+    {
+        var interfacesAndImplementClasses = Assembly.Load("AlgorithmService.Domain").GetTypes()
+            .Where(type => type.IsClass && type.GetInterfaces().Length > 0)
+            .Select(type => new { ImplementInterfaceClass = type, Interfaces = type.GetInterfaces().ToList() }).ToList();
+
+        foreach (var interfaceClass in interfacesAndImplementClasses)
+        {
+            interfaceClass.Interfaces.ForEach(Interface =>
+            {
+                services.AddScoped(Interface, interfaceClass.ImplementInterfaceClass);
+            });
+        }
+
     }
 }

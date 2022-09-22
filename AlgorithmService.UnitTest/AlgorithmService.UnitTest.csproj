@@ -27,6 +27,7 @@
 		<Using Include="System.Collections.Generic" />
 		<Using Include="System.Text" />
 		<Using Include="System.Linq" />
+		<Using Include="System.Reflection" />
 		<Using Include="Xunit" />
 		<Using Include="Microsoft.Extensions.DependencyInjection"/>
 	</ItemGroup>
