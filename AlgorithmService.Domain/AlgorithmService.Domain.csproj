@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<NoWarn>CS8600,CS8601,CS8603,CS8625</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Include="System" />
+		<Using Include="System.Collections.Generic" />
+		<Using Include="System.Text" />
+	</ItemGroup>
+
+</Project>

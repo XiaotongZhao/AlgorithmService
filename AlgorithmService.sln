@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgorithmService", "AlgorithmService\AlgorithmService.csproj", "{956038FF-D88C-4ABA-B7C7-5A55B9BD64E3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgorithmService.UnitTest", "AlgorithmService.UnitTest\AlgorithmService.UnitTest.csproj", "{845168C9-86A1-499B-AF84-D4E5EA0D1096}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgorithmService.Domain", "AlgorithmService.Domain\AlgorithmService.Domain.csproj", "{5AC397B1-5020-4D4C-8BB6-FC1B7AC08D9E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{302396C0-07BC-4A70-9DCE-C06974DF8FE8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{956038FF-D88C-4ABA-B7C7-5A55B9BD64E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{956038FF-D88C-4ABA-B7C7-5A55B9BD64E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{956038FF-D88C-4ABA-B7C7-5A55B9BD64E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{956038FF-D88C-4ABA-B7C7-5A55B9BD64E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{845168C9-86A1-499B-AF84-D4E5EA0D1096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{845168C9-86A1-499B-AF84-D4E5EA0D1096}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{845168C9-86A1-499B-AF84-D4E5EA0D1096}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{845168C9-86A1-499B-AF84-D4E5EA0D1096}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AC397B1-5020-4D4C-8BB6-FC1B7AC08D9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AC397B1-5020-4D4C-8BB6-FC1B7AC08D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AC397B1-5020-4D4C-8BB6-FC1B7AC08D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AC397B1-5020-4D4C-8BB6-FC1B7AC08D9E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {21165AEB-DDCF-4297-8FB5-3E558F6A9F64}
+	EndGlobalSection
+EndGlobal

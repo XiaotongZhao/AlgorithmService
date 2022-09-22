@@ -1,0 +1,9 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=525c6498_002D293d_002D47b6_002D8e6b_002Dcca6f356e47a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestFibAsync" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::845168C9-86A1-499B-AF84-D4E5EA0D1096::net6.0::AlgorithmServiceUnitTest.AlgorithmsUnitTest&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f5ea217e_002D9f24_002D4e59_002D966f_002D9198225bb684/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestQuickSortService" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/zhaoxiaotong/Projects/AlgorithmService/AlgorithmServiceUnitTest" Presentation="&amp;lt;AlgorithmServiceUnitTest&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
