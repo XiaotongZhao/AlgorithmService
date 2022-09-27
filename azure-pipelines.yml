@@ -14,9 +14,9 @@ variables:
 
 steps:
 - task: DotNetCoreCLI@2
-  displayName: Restore
   inputs:
-    command: restore
+    command: 'restore'
+    feedsToUse: 'select'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
