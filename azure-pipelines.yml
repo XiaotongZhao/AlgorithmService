@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: zhaoxiaotong
+  agent: zhaoxiaotong
 
 variables:
   buildConfiguration: 'Release'
