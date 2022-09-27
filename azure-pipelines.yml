@@ -19,11 +19,10 @@ steps:
     feedsToUse: 'select'
   displayName: 'dotnet restore'
   
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    arguments: '--configuration $(buildConfiguration)'
-  displayName: 'dotnet build $(buildConfiguration)'
+- script: |
+   dotnet restore
+  displayName: 'Command Line Script'
+
 - task: DotNetCoreCLI@2
   displayName: Test
   inputs:
