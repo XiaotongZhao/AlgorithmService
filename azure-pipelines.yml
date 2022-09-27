@@ -17,7 +17,6 @@ steps:
   displayName: Restore
   inputs:
     command: restore
-    projects: '$(Parameters.RestoreBuildProjects)'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
