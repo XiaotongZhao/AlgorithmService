@@ -13,11 +13,19 @@ variables:
   buildConfiguration: 'Release'
   dotNetVersion: '6.0.x'
 
+
 steps:
-- script: |
-   dotnet --version
-   dotnet restore
-  displayName: 'Command Line Script'
+- task: UseDotNet@2
+  inputs:
+    version: $(dotNetVersion)
+    includePreviewVersions: true
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'Build .NET 6 Application'
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: restore
+    projects: '$(Parameters.RestoreBuildProjects)'
 
 - task: DotNetCoreCLI@2
   displayName: Test
