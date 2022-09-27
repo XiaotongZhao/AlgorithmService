@@ -15,10 +15,6 @@ variables:
 
 
 steps:
-- task: UseDotNet@2
-  inputs:
-    version: $(dotNetVersion)
-    includePreviewVersions: true
 - script: dotnet restore
   displayName: 'Nuget restore'
 - script: dotnet build --configuration $(buildConfiguration)
