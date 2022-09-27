@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  agent: zhaoxiaotong
+  vmImage: 'windows-latest'
 
 variables:
   buildConfiguration: 'Release'
