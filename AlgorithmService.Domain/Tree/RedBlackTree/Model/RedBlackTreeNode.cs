@@ -6,39 +6,11 @@ public class RedBlackTreeNode
     public bool IsRoot;
     public bool IsNull;
     public Color NodeColor = Color.Red;
-    public RedBlackTreeNode Parent;
+    public RedBlackTreeNode Parent { get; set; }
 
-    private RedBlackTreeNode leftChildNode;
-    private RedBlackTreeNode rightChildNode;
+    public RedBlackTreeNode LeftChildNode { get; set; }
 
-
-    public RedBlackTreeNode LeftChildNode
-    {
-        set => leftChildNode = value;
-        get =>
-            leftChildNode ?? (leftChildNode = new RedBlackTreeNode()
-            {
-                IsNull = true,
-                Parent = this,
-                leftChildNode = null,
-                rightChildNode = null,
-                NodeColor = Color.Black
-            });
-    }
-
-    public RedBlackTreeNode RightChildNode
-    {
-        set => rightChildNode = value;
-        get =>
-            rightChildNode ?? (rightChildNode = new RedBlackTreeNode()
-            {
-                IsNull = true,
-                Parent = this,
-                leftChildNode = null,
-                rightChildNode = null,
-                NodeColor = Color.Black
-            });
-    }
+    public RedBlackTreeNode RightChildNode { get; set; }
 
     public RedBlackTreeNode GetRoot()
     {
@@ -114,15 +86,20 @@ public class RedBlackTreeNode
     public RedBlackTreeNode TreeMinimum()
     {
         var currentTreeNode = this;
-        if (currentTreeNode.leftChildNode == null)
+        if (currentTreeNode.LeftChildNode == null)
         {
-            currentTreeNode = currentTreeNode.LeftChildNode;
+            currentTreeNode.LeftChildNode = new RedBlackTreeNode() 
+            {
+                IsNull = true,
+                Parent = this,
+                NodeColor = Color.Black
+            };
         }
         else
         {
-            while (currentTreeNode.leftChildNode != null)
+            while (currentTreeNode.LeftChildNode != null)
             {
-                currentTreeNode = currentTreeNode.leftChildNode;
+                currentTreeNode = currentTreeNode.LeftChildNode;
             }
         }
         return currentTreeNode;

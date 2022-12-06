@@ -9,7 +9,22 @@ public class RedBlackTreeService : IRedBlackTreeService
         RedBlackTreeNode redBlackTree = null;
         foreach (var key in keys)
         {
-            var redBlackTreeNode = new RedBlackTreeNode() { Key = key };
+            var redBlackTreeNode = new RedBlackTreeNode()
+            {
+                Key = key                
+            };
+            redBlackTreeNode.LeftChildNode = new RedBlackTreeNode()
+            {
+                IsNull = true,
+                Parent = redBlackTreeNode,
+                NodeColor = Color.Black
+            };
+            redBlackTreeNode.RightChildNode = new RedBlackTreeNode()
+            {
+                IsNull = true,
+                Parent = redBlackTreeNode,
+                NodeColor = Color.Black
+            };
             InsertRedBlackTreeNode(ref redBlackTree, redBlackTreeNode);
         }
 
