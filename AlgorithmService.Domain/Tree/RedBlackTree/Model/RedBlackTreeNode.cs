@@ -108,6 +108,6 @@ public class RedBlackTreeNode
 
 public enum Color
 {
-    Red,
-    Black
+    Red = 3,
+    Black = 0
 }
