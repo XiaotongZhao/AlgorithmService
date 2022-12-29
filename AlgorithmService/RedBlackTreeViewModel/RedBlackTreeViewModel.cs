@@ -32,7 +32,10 @@ public static class RedBlackTree
             }
             else
             {
-                currentNode = stack.Pop();
+                var popNode = stack.Pop();
+                currentNode = stack.Peek();
+                if (stack.Any(data => data.Key == currentNode.RightChildNode.Key))
+                { }
             }
         }
 
