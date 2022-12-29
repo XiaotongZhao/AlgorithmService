@@ -25,14 +25,14 @@ public static class RedBlackTree
                 stack.Push(currentNode.LeftChildNode);
                 currentNode = currentNode.LeftChildNode;
             }
-            else 
+            else if (currentNode.RightChildNode != null)
+            {
+                currentNode = currentNode.RightChildNode;
+                stack.Push(currentNode);
+            }
+            else
             {
                 currentNode = stack.Pop();
-                if (currentNode.RightChildNode != null)
-                {
-                    currentNode = currentNode.RightChildNode;
-                    stack.Push(currentNode);
-                }
             }
         }
 
