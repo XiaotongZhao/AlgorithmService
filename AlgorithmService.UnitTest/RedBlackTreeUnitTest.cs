@@ -1,5 +1,7 @@
 ﻿using AlgorithmService.Domain.Tree.RedBlackTree.Model;
 using AlgorithmService.Domain.Tree.RedBlackTree.Service;
+using AlgorithmService.RedBlackTreeViewModel;
+using System.Xml.Linq;
 
 namespace AlgorithmService.UnitTest;
 
@@ -22,19 +24,19 @@ public class RedBlackTreeUnitTest : IClassFixture<StartupFixture>
         var tree = redBlackTreeService.CreateRedBlackTree(keys);
         var root = tree.GetRoot();
         Assert.True(root.LeftChildNode.NodeColor == Color.Black);
-         Assert.True(root.LeftChildNode.LeftChildNode.NodeColor == Color.Black);
-         Assert.True(root.LeftChildNode.RightChildNode.NodeColor == Color.Red);
-         Assert.True(root.LeftChildNode.RightChildNode.LeftChildNode.NodeColor == Color.Black);
-         Assert.True(root.LeftChildNode.RightChildNode.LeftChildNode.LeftChildNode.NodeColor == Color.Red);
-         Assert.True(root.LeftChildNode.RightChildNode.LeftChildNode.RightChildNode.NodeColor == Color.Red);
-         Assert.True(root.LeftChildNode.RightChildNode.RightChildNode.NodeColor == Color.Black);
+        Assert.True(root.LeftChildNode.LeftChildNode.NodeColor == Color.Black);
+        Assert.True(root.LeftChildNode.RightChildNode.NodeColor == Color.Red);
+        Assert.True(root.LeftChildNode.RightChildNode.LeftChildNode.NodeColor == Color.Black);
+        Assert.True(root.LeftChildNode.RightChildNode.LeftChildNode.LeftChildNode.NodeColor == Color.Red);
+        Assert.True(root.LeftChildNode.RightChildNode.LeftChildNode.RightChildNode.NodeColor == Color.Red);
+        Assert.True(root.LeftChildNode.RightChildNode.RightChildNode.NodeColor == Color.Black);
         Assert.True(root.RightChildNode.NodeColor == Color.Black);
-         Assert.True(root.RightChildNode.LeftChildNode.NodeColor == Color.Black);
-         Assert.True(root.RightChildNode.LeftChildNode.RightChildNode.NodeColor == Color.Red);
-         Assert.True(root.RightChildNode.RightChildNode.NodeColor == Color.Red);
-         Assert.True(root.RightChildNode.RightChildNode.LeftChildNode.NodeColor == Color.Black);
-         Assert.True(root.RightChildNode.RightChildNode.RightChildNode.NodeColor == Color.Black);
-         Assert.True(root.RightChildNode.RightChildNode.RightChildNode.LeftChildNode.NodeColor == Color.Red);
+        Assert.True(root.RightChildNode.LeftChildNode.NodeColor == Color.Black);
+        Assert.True(root.RightChildNode.LeftChildNode.RightChildNode.NodeColor == Color.Red);
+        Assert.True(root.RightChildNode.RightChildNode.NodeColor == Color.Red);
+        Assert.True(root.RightChildNode.RightChildNode.LeftChildNode.NodeColor == Color.Black);
+        Assert.True(root.RightChildNode.RightChildNode.RightChildNode.NodeColor == Color.Black);
+        Assert.True(root.RightChildNode.RightChildNode.RightChildNode.LeftChildNode.NodeColor == Color.Red);
     }
 
     [Fact]
@@ -56,7 +58,7 @@ public class RedBlackTreeUnitTest : IClassFixture<StartupFixture>
         Assert.True(root.RightChildNode.RightChildNode.NodeColor == Color.Black);
         Assert.True(root.RightChildNode.RightChildNode.RightChildNode.NodeColor == Color.Red);
     }
-    
+
     [Fact]
     public void TestInsertRedBlackTreeNodeWithRightOrLeftRotate()
     {
@@ -76,7 +78,7 @@ public class RedBlackTreeUnitTest : IClassFixture<StartupFixture>
         Assert.True(root.RightChildNode.LeftChildNode.NodeColor == Color.Black);
         Assert.True(root.RightChildNode.RightChildNode.NodeColor == Color.Black);
     }
-    
+
     [Fact]
     public void TestDeleteRedBlackTreeNode()
     {
@@ -129,4 +131,23 @@ public class RedBlackTreeUnitTest : IClassFixture<StartupFixture>
         Assert.True(root.LeftChildNode.LeftChildNode.LeftChildNode.NodeColor == Color.Black && root.LeftChildNode.LeftChildNode.LeftChildNode.Key == 82);
         Assert.True(root.LeftChildNode.LeftChildNode.RightChildNode.NodeColor == Color.Black && root.LeftChildNode.LeftChildNode.RightChildNode.Key == 292);
     }
+
+
+    [Fact]
+    public void TestConvertBlackRedTreeToViewModel()
+    {
+        int[] keys = { 10, 6, 4, 7, 5, 17, 12, 19, 18, 20 };
+        using var scope = startupFixture.ServiceProvider.CreateScope();
+        var redBlackTreeService = scope.ServiceProvider.GetService<IRedBlackTreeService>();
+        if (redBlackTreeService == null) return;
+        var tree = redBlackTreeService.CreateRedBlackTree(keys);
+        var root = tree.GetRoot();
+        var redBlackTree = RedBlackTree.ConvertBlackRedTreeToViewModel(root);
+        redBlackTree.Nodes = redBlackTree.Nodes.Where(a => a.Value > 0).ToList();
+        var nodes = redBlackTree.Nodes;
+        var values = nodes.Select(a => a.Value).ToList();
+        var res = string.Join(',', values);
+        Assert.True(res == "5,4,7,6,12,18,20,19,17,10");
+    }
+
 }

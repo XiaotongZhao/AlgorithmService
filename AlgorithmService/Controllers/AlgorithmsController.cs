@@ -4,6 +4,7 @@ using AlgorithmService.Domain.Algorithms.QuickSort;
 using AlgorithmService.Domain.Algorithms.QuickSort.Service;
 using AlgorithmService.Domain.Tree.RedBlackTree.Model;
 using AlgorithmService.Domain.Tree.RedBlackTree.Service;
+using AlgorithmService.RedBlackTreeViewModel;
 
 namespace AlgorithmService.Controllers;
 
@@ -46,11 +47,12 @@ public class AlgorithmsController : ControllerBase
 
     [HttpPost]
     [Route("CreateRedBlackTree")]
-    public RedBlackTreeNode CreateRedBlackTree(int[] keys)
+    public RedBlackTreeModel CreateRedBlackTree(int[] keys)
     {
         var tree = redBlackTreeService.CreateRedBlackTree(keys);
         var root = tree.GetRoot();
-        return root;
+        var redBlackTree = RedBlackTree.ConvertBlackRedTreeToViewModel(root);
+        return redBlackTree;
     }
 }
 

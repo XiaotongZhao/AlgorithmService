@@ -20,6 +20,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\AlgorithmService.Domain\AlgorithmService.Domain.csproj" />
+      <ProjectReference Include="..\AlgorithmService\AlgorithmService.csproj" />
     </ItemGroup>
 
 	<ItemGroup>
@@ -29,6 +30,6 @@
 		<Using Include="System.Linq" />
 		<Using Include="System.Reflection" />
 		<Using Include="Xunit" />
-		<Using Include="Microsoft.Extensions.DependencyInjection"/>
+		<Using Include="Microsoft.Extensions.DependencyInjection" />
 	</ItemGroup>
 </Project>

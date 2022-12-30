@@ -3,7 +3,6 @@ namespace AlgorithmService.Domain.Tree.RedBlackTree.Model;
 public class RedBlackTreeNode
 {
     public int Key;
-    public bool IsRoot;
     public bool IsNull;
     public Color NodeColor = Color.Red;
     public RedBlackTreeNode Parent { get; set; }
@@ -15,28 +14,24 @@ public class RedBlackTreeNode
     public RedBlackTreeNode GetRoot()
     {
         RedBlackTreeNode currentNode = this;
-        if (currentNode.Parent == null)
-        {
-            currentNode.IsRoot = true;
-        }
-
-        while (currentNode != null && currentNode.IsRoot == false)
+        while (currentNode != null && currentNode.Parent != null)
         {
             currentNode = currentNode.Parent;
         }
-
         return currentNode;
     }
 
     public void Transplant(RedBlackTreeNode behindChildNode)
     {
         var currentNode = this;
-        if (currentNode.Parent == null)
-            behindChildNode.IsRoot = true;
-        else if (currentNode.Parent.LeftChildNode.Key == currentNode.Key)
-            currentNode.Parent.LeftChildNode = behindChildNode;
-        else
-            currentNode.Parent.RightChildNode = behindChildNode;
+        if (currentNode.Parent != null)
+        {
+            if (currentNode.Parent.LeftChildNode.Key == currentNode.Key)
+                currentNode.Parent.LeftChildNode = behindChildNode;
+            else
+                currentNode.Parent.RightChildNode = behindChildNode;
+        }
+    
         if (behindChildNode != null)
         {
             behindChildNode.Parent = currentNode.Parent;
@@ -48,7 +43,6 @@ public class RedBlackTreeNode
         var currentRightChildNode = this.RightChildNode;
         if (this.Parent == null)
         {
-            currentRightChildNode.IsRoot = true;
             currentRightChildNode.Parent = null;
         }
         else if (this.Parent.LeftChildNode.Key == this.Key)
@@ -68,7 +62,6 @@ public class RedBlackTreeNode
         var currentLeftChildNode = this.LeftChildNode;
         if (this.Parent == null)
         {
-            currentLeftChildNode.IsRoot = true;
             currentLeftChildNode.Parent = null;
         }
         else if (this.Parent.LeftChildNode.Key == this.Key)
@@ -88,7 +81,7 @@ public class RedBlackTreeNode
         var currentTreeNode = this;
         if (currentTreeNode.LeftChildNode == null)
         {
-            currentTreeNode.LeftChildNode = new RedBlackTreeNode() 
+            currentTreeNode.LeftChildNode = new RedBlackTreeNode()
             {
                 IsNull = true,
                 Parent = this,

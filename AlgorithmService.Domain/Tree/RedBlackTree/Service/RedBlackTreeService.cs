@@ -11,7 +11,7 @@ public class RedBlackTreeService : IRedBlackTreeService
         {
             var redBlackTreeNode = new RedBlackTreeNode()
             {
-                Key = key                
+                Key = key
             };
             redBlackTreeNode.LeftChildNode = new RedBlackTreeNode()
             {
@@ -36,8 +36,7 @@ public class RedBlackTreeService : IRedBlackTreeService
         var currentNode = insertTreeNode;
         while (currentNode.Parent?.NodeColor == Color.Red)
         {
-            if (currentNode.Parent.Key ==
-                currentNode.Parent.Parent.RightChildNode.Key)
+            if (currentNode.Parent.Key == currentNode.Parent.Parent.RightChildNode.Key)
             {
                 var uncleParentNode = currentNode.Parent.Parent.LeftChildNode;
                 if (uncleParentNode.NodeColor == Color.Red)
@@ -96,7 +95,6 @@ public class RedBlackTreeService : IRedBlackTreeService
     {
         if (redBlackTree == null)
         {
-            insertRedBlackTreeNode.IsRoot = true;
             redBlackTree = insertRedBlackTreeNode;
         }
         else
@@ -126,7 +124,7 @@ public class RedBlackTreeService : IRedBlackTreeService
 
     private RedBlackTreeNode fixRedBlackTreeAfterDelete(RedBlackTreeNode xPoint)
     {
-        while (!xPoint.IsRoot & xPoint.NodeColor == Color.Black)
+        while (xPoint.Parent != null && xPoint.NodeColor == Color.Black)
         {
             if (xPoint.Parent.LeftChildNode.Key == xPoint.Key)
             {

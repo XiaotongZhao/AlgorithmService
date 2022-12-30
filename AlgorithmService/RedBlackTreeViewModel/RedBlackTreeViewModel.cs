@@ -4,43 +4,56 @@ namespace AlgorithmService.RedBlackTreeViewModel;
 
 public static class RedBlackTree
 {
-    public static RedBlackTreeViewModel ConvertBlackRedTreeToViewModel(RedBlackTreeNode redBlackTree)
+    public static RedBlackTreeModel ConvertBlackRedTreeToViewModel(RedBlackTreeNode redBlackTree)
     {
-        var redBlackTreeViewModel = new RedBlackTreeViewModel();
+        var redBlackTreeViewModel = new RedBlackTreeModel();
         var root = redBlackTree.GetRoot();
-        redBlackTreeViewModel.Nodes.Add(new Node()
+        redBlackTreeViewModel.Nodes = new List<Node>()
         {
-            Id = root.Key,
-            Name = root.Key.ToString(),
-            Value = root.Key,
-            Category = (int)root.NodeColor
-        });
-        var stack = new Stack<RedBlackTreeNode>();
-        var currentNode = root;
-        stack.Push(root);
-        while (stack.Count > 0)
-        {
-            if (currentNode.LeftChildNode != null)
+            new Node()
             {
-                stack.Push(currentNode.LeftChildNode);
-                currentNode = currentNode.LeftChildNode;
+                Id = root.Key,
+                Name = root.Key.ToString(),
+                Value = root.Key,
+                Category = (int)root.NodeColor
             }
-            else if (currentNode.RightChildNode != null)
+        };
+        var stack = new Stack<RedBlackTreeNode>();
+        RedBlackTreeNode currentNode, existNode;
+        currentNode = root;
+        existNode = null;
+        stack.Push(currentNode);
+        while (stack.Count > 0 || currentNode != null)
+        {
+            if (currentNode != null && currentNode.LeftChildNode != null)
             {
-                currentNode = currentNode.RightChildNode;
+                currentNode = currentNode.LeftChildNode;
                 stack.Push(currentNode);
             }
             else
             {
-                var popNode = stack.Pop();
                 currentNode = stack.Peek();
-                if (stack.Any(data => data.Key == currentNode.RightChildNode.Key))
-                { }
+                if (currentNode.RightChildNode != null && (existNode == null || existNode.Key != currentNode.RightChildNode.Key))
+                {
+                    currentNode = currentNode.RightChildNode;
+                    stack.Push(currentNode);
+                    currentNode = currentNode.LeftChildNode;
+                }
+                else
+                {
+                    var node = stack.Pop();
+                    redBlackTreeViewModel.Nodes.Add(new Node()
+                    {
+                        Id = node.Key,
+                        Name = node.Key.ToString(),
+                        Value = node.Key,
+                        Category = (int)node.NodeColor
+                    });
+                    existNode = currentNode;
+                    currentNode = null;
+                }
             }
         }
-
-
-
         return redBlackTreeViewModel;
     }
 }
@@ -62,7 +75,7 @@ public class Link
     public int Target { get; set; }
 }
 
-public class RedBlackTreeViewModel
+public class RedBlackTreeModel
 {
     public List<Node> Nodes { get; set; }
     public List<Link> Links { get; set; }
