@@ -8,12 +8,14 @@ public static class RedBlackTree
     {
         var redBlackTreeViewModel = new RedBlackTreeModel();
         var root = redBlackTree.GetRoot();
-        redBlackTreeViewModel.Nodes = new List<Node>(); ;
+        redBlackTreeViewModel.Nodes = new List<Node>();
+        redBlackTreeViewModel.Links= new List<Link>();
         var stack = new Stack<RedBlackTreeNode>();
         RedBlackTreeNode currentNode, existNode;
         currentNode = root;
         existNode = null;
         stack.Push(currentNode);
+        int id = 0;
         while (stack.Count > 0 || currentNode != null)
         {
             if (currentNode != null && currentNode.LeftChildNode.Key > 0 && currentNode.LeftChildNode != null)
@@ -37,7 +39,7 @@ public static class RedBlackTree
                     var node = stack.Pop();
                     redBlackTreeViewModel.Nodes.Add(new Node()
                     {
-                        Id = node.Key,
+                        Id = id++,
                         Name = node.Key.ToString(),
                         Value = node.Key,
                         Category = (int)node.NodeColor
