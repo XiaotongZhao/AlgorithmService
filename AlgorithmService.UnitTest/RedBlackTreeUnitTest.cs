@@ -143,11 +143,12 @@ public class RedBlackTreeUnitTest : IClassFixture<StartupFixture>
         var tree = redBlackTreeService.CreateRedBlackTree(keys);
         var root = tree.GetRoot();
         var redBlackTree = RedBlackTree.ConvertBlackRedTreeToViewModel(root);
-        redBlackTree.Nodes = redBlackTree.Nodes.Where(a => a.Value > 0).ToList();
         var nodes = redBlackTree.Nodes;
         var values = nodes.Select(a => a.Value).ToList();
         var res = string.Join(',', values);
         Assert.True(res == "5,4,7,6,12,18,20,19,17,10");
+        var currentNode = root.FindNode(10);
+        Assert.True(currentNode.NodeColor == Color.Black);
     }
 
 }

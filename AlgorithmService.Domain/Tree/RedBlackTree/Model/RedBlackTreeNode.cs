@@ -21,6 +21,19 @@ public class RedBlackTreeNode
         return currentNode;
     }
 
+    public RedBlackTreeNode FindNode(int key)
+    {
+        RedBlackTreeNode node = GetRoot();
+        while (node != null && node.Key != key)
+        {
+            if (node.Key < key)
+                node = node.RightChildNode;
+            else if (node.Key > key)
+                node = node.LeftChildNode;
+        }
+        return node;
+    }
+
     public void Transplant(RedBlackTreeNode behindChildNode)
     {
         var currentNode = this;

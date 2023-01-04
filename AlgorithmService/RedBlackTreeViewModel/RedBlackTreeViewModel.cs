@@ -8,16 +8,7 @@ public static class RedBlackTree
     {
         var redBlackTreeViewModel = new RedBlackTreeModel();
         var root = redBlackTree.GetRoot();
-        redBlackTreeViewModel.Nodes = new List<Node>()
-        {
-            new Node()
-            {
-                Id = root.Key,
-                Name = root.Key.ToString(),
-                Value = root.Key,
-                Category = (int)root.NodeColor
-            }
-        };
+        redBlackTreeViewModel.Nodes = new List<Node>(); ;
         var stack = new Stack<RedBlackTreeNode>();
         RedBlackTreeNode currentNode, existNode;
         currentNode = root;
@@ -25,7 +16,7 @@ public static class RedBlackTree
         stack.Push(currentNode);
         while (stack.Count > 0 || currentNode != null)
         {
-            if (currentNode != null && currentNode.LeftChildNode != null)
+            if (currentNode != null && currentNode.LeftChildNode.Key > 0 && currentNode.LeftChildNode != null)
             {
                 currentNode = currentNode.LeftChildNode;
                 stack.Push(currentNode);
@@ -33,11 +24,13 @@ public static class RedBlackTree
             else
             {
                 currentNode = stack.Peek();
-                if (currentNode.RightChildNode != null && (existNode == null || existNode.Key != currentNode.RightChildNode.Key))
+                if (currentNode.RightChildNode != null && currentNode.RightChildNode.Key > 0 && (existNode == null || existNode.Key != currentNode.RightChildNode.Key))
                 {
                     currentNode = currentNode.RightChildNode;
                     stack.Push(currentNode);
-                    currentNode = currentNode.LeftChildNode;
+                    currentNode = currentNode.LeftChildNode.Key > 0 ? currentNode.LeftChildNode : null;
+                    if(currentNode != null)
+                        stack.Push(currentNode);
                 }
                 else
                 {
