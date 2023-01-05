@@ -10,6 +10,7 @@ public static class RedBlackTree
         var root = redBlackTree.GetRoot();
         redBlackTreeViewModel.Nodes = new List<Node>();
         redBlackTreeViewModel.Links= new List<Link>();
+        redBlackTreeViewModel.DicKeyAndId = new Dictionary<int, int>();
         var stack = new Stack<RedBlackTreeNode>();
         RedBlackTreeNode currentNode, existNode;
         currentNode = root;
@@ -44,6 +45,24 @@ public static class RedBlackTree
                         Value = node.Key,
                         Category = (int)node.NodeColor
                     });
+                    redBlackTreeViewModel.DicKeyAndId.Add(node.Key, id);
+                    if (node.LeftChildNode.Key > 0)
+                    {
+                        redBlackTreeViewModel.Links.Add(new Link() 
+                        {
+                            Source = node.Key,
+                            Target = node.LeftChildNode.Key
+                        });
+                    }
+                    if (node.RightChildNode.Key > 0)
+                    {
+                        redBlackTreeViewModel.Links.Add(new Link()
+                        {
+                            Source = node.Key,
+                            Target = node.RightChildNode.Key
+                        });
+                    }
+
                     existNode = currentNode;
                     currentNode = null;
                 }
@@ -74,4 +93,5 @@ public class RedBlackTreeModel
 {
     public List<Node> Nodes { get; set; }
     public List<Link> Links { get; set; }
+    public Dictionary<int, int> DicKeyAndId { get; set; }
 }

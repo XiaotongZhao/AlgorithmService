@@ -52,6 +52,11 @@ public class AlgorithmsController : ControllerBase
         var tree = redBlackTreeService.CreateRedBlackTree(keys);
         var root = tree.GetRoot();
         var redBlackTree = RedBlackTree.ConvertBlackRedTreeToViewModel(root);
+        redBlackTree.Links.ForEach(link => 
+        {
+            link.Source = redBlackTree.DicKeyAndId[link.Source];
+            link.Target = redBlackTree.DicKeyAndId[link.Target];
+        });
         return redBlackTree;
     }
 }

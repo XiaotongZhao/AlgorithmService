@@ -145,6 +145,11 @@ public class RedBlackTreeUnitTest : IClassFixture<StartupFixture>
         var redBlackTree = RedBlackTree.ConvertBlackRedTreeToViewModel(root);
         var nodes = redBlackTree.Nodes;
         var values = nodes.Select(a => a.Value).ToList();
+        redBlackTree.Links.ForEach(link =>
+        {
+            link.Source = redBlackTree.DicKeyAndId[link.Source];
+            link.Target = redBlackTree.DicKeyAndId[link.Target];
+        });
         var res = string.Join(',', values);
         Assert.True(res == "5,4,7,6,12,18,20,19,17,10");
         var currentNode = root.FindNode(10);
