@@ -2,6 +2,7 @@ using Elastic.Serilog.Sinks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Prometheus;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 var environment = Environment.GetEnvironmentVariable("ENVIRONMENT");
+app.UseHttpMetrics();
 // Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI();
@@ -26,7 +28,7 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.MapMetrics();
 app.MapControllers();
 
 app.MapGet("/", () => $"Deploy AlgorithmService Successful  !!!! the env is {environment}");
